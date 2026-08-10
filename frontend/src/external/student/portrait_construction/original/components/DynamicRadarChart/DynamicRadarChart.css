@@ -1,0 +1,906 @@
+.dynamic-radar-shell {
+  position: relative;
+  display: grid;
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+  min-height: 0;
+  grid-template-columns: minmax(0, 1.15fr) var(--side-panel-width);
+  column-gap: clamp(48px, 4.4vw, 80px);
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0 clamp(2px, 0.6vw, 10px) 0 0;
+  color: #2f5860;
+  overflow: hidden;
+  transform: none;
+  --side-panel-width: clamp(500px, 33vw, 620px);
+  --visual-size: min(54vw, calc(100vh - 150px), 820px);
+}
+
+.dynamic-radar-shell::before {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  z-index: 1;
+  width: var(--side-panel-width);
+  height: 76px;
+  pointer-events: none;
+  content: "";
+  background:
+    linear-gradient(90deg, rgba(47, 88, 96, 0.16), transparent 38%),
+    repeating-linear-gradient(90deg, rgba(47, 88, 96, 0.11) 0 18px, transparent 18px 28px);
+  mask-image: linear-gradient(180deg, transparent 0, #000 24%, #000 76%, transparent 100%);
+  transform: translateY(-50%);
+}
+
+.dynamic-radar-shell::after {
+  position: absolute;
+  top: 22%;
+  right: calc(var(--side-panel-width) + clamp(48px, 4.4vw, 80px));
+  z-index: 1;
+  width: 58px;
+  height: 168px;
+  pointer-events: none;
+  content: "";
+  opacity: 0.5;
+  background:
+    radial-gradient(circle, rgba(47, 88, 96, 0.2) 0 1px, transparent 1.4px),
+    linear-gradient(90deg, transparent 0 42px, rgba(47, 88, 96, 0.12) 42px 43px, transparent 43px);
+  background-size:
+    9px 9px,
+    100% 100%;
+}
+
+.radar-copy {
+  position: absolute;
+  top: clamp(8px, 1.2vh, 18px);
+  left: clamp(8px, 2.4vw, 40px);
+  display: grid;
+  gap: 4px;
+  pointer-events: none;
+  letter-spacing: 0;
+  color: rgba(47, 88, 96, 0.62);
+}
+
+.radar-kicker {
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.radar-microcopy {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  opacity: 0.48;
+}
+
+.radar-visual-wrap {
+  position: relative;
+  z-index: 3;
+  grid-column: 1;
+  justify-self: center;
+  align-self: center;
+  width: var(--visual-size);
+  aspect-ratio: 1;
+  transform: translateX(clamp(-28px, -1.8vw, -14px));
+}
+
+.dynamic-radar-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.radar-rings circle,
+.radar-rings path {
+  fill: none;
+  vector-effect: non-scaling-stroke;
+}
+
+.radar-functional-circle {
+  fill: none;
+  stroke: rgba(47, 88, 96, 0.17);
+  stroke-width: 0.82;
+  vector-effect: non-scaling-stroke;
+}
+
+.radar-functional-arc {
+  fill: none;
+  stroke: rgba(47, 88, 96, 0.2);
+  stroke-width: 0.95;
+  vector-effect: non-scaling-stroke;
+}
+
+.radar-ring rect {
+  fill: rgba(47, 88, 96, 0.3);
+}
+
+.radar-ring-segment {
+  stroke: rgba(47, 88, 96, 0.22);
+  stroke-width: 3.4;
+  stroke-linecap: butt;
+}
+
+.radar-orbit-dot {
+  fill: rgba(47, 88, 96, 0.28);
+}
+
+.ring-major .radar-functional-arc {
+  stroke: rgba(47, 88, 96, 0.3);
+  stroke-width: 1.18;
+}
+
+.ring-major .radar-ring-segment {
+  stroke: rgba(47, 88, 96, 0.28);
+  stroke-width: 4.6;
+}
+
+.ring-inner .radar-functional-circle,
+.ring-inner .radar-functional-arc {
+  stroke: rgba(47, 88, 96, 0.24);
+  stroke-width: 0.84;
+}
+
+.ring-dotted .radar-functional-circle {
+  stroke-linecap: round;
+}
+
+.ring-minor .radar-functional-arc {
+  stroke: rgba(47, 88, 96, 0.23);
+  stroke-width: 0.92;
+}
+
+.ring-faint .radar-functional-circle,
+.ring-faint .radar-functional-arc {
+  stroke: rgba(47, 88, 96, 0.12);
+  stroke-width: 0.72;
+}
+
+.ring-structure .radar-functional-circle {
+  stroke: rgba(47, 88, 96, 0.2);
+  stroke-width: 0.95;
+}
+
+.ring-dashed circle {
+  stroke-linecap: round;
+}
+
+.radar-outer-boundary {
+  fill: none;
+  stroke: rgba(47, 88, 96, 0.24);
+  stroke-dasharray: 40 18 2 16;
+  stroke-width: 0.95;
+  vector-effect: non-scaling-stroke;
+}
+
+.radar-composition-arcs path,
+.radar-scan-bands path,
+.radar-dotted-texture-rings circle,
+.radar-micro-markers rect,
+.radar-micro-markers line,
+.radar-micro-markers circle,
+.radar-precision-core-rings circle,
+.radar-precision-core-rings path,
+.radar-poster-guides path,
+.radar-poster-guides circle,
+.radar-poster-bars path {
+  fill: none;
+  vector-effect: non-scaling-stroke;
+}
+
+.composition-arc {
+  stroke: rgba(47, 88, 96, 0.14);
+  stroke-linecap: butt;
+  opacity: 0.16;
+}
+
+.composition-arc-heavy {
+  stroke-width: 22;
+  stroke: rgba(47, 88, 96, 0.12);
+}
+
+.composition-arc-soft {
+  stroke-width: 10;
+  stroke: rgba(47, 88, 96, 0.1);
+}
+
+.composition-arc-dust {
+  stroke-width: 15;
+  stroke: rgba(47, 88, 96, 0.08);
+  stroke-dasharray: 1 4;
+}
+
+.composition-arc-thin {
+  stroke-width: 1;
+  stroke-dasharray: 8 14;
+}
+
+.composition-arc-inner {
+  stroke-width: 4.2;
+  stroke: rgba(47, 88, 96, 0.18);
+  stroke-dasharray: 28 15;
+}
+
+.composition-arc-left-density {
+  stroke-width: 8;
+  stroke: rgba(47, 88, 96, 0.1);
+  stroke-dasharray: 2 5;
+}
+
+.composition-arc-edge {
+  stroke-width: 1;
+  stroke: rgba(47, 88, 96, 0.18);
+  stroke-dasharray: 7 13;
+}
+
+.radar-scan-bands path {
+  filter: url(#scanGrain);
+  mix-blend-mode: multiply;
+  stroke-linecap: butt;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.scan-band-primary {
+  stroke: url(#scanBandWash);
+  stroke-width: 30;
+  stroke-dasharray: 118 18 26 14;
+}
+
+.scan-band-outer {
+  stroke: rgba(47, 88, 96, 0.085);
+  stroke-width: 20;
+  stroke-dasharray: 84 22;
+}
+
+.scan-band-lower {
+  stroke: rgba(47, 88, 96, 0.075);
+  stroke-width: 26;
+  stroke-dasharray: 94 28 36 18;
+}
+
+.scan-band-inner-glint {
+  stroke: rgba(47, 88, 96, 0.2);
+  stroke-width: 4;
+  stroke-dasharray: 42 12;
+}
+
+.texture-dot {
+  fill: rgba(47, 88, 96, 0.24);
+  vector-effect: non-scaling-stroke;
+}
+
+.texture-left-dense {
+  fill: rgba(47, 88, 96, 0.3);
+}
+
+.texture-left-soft,
+.texture-bottom-left {
+  fill: rgba(47, 88, 96, 0.18);
+}
+
+.texture-right-sparse {
+  fill: rgba(47, 88, 96, 0.16);
+}
+
+.micro-marker {
+  fill: rgba(47, 88, 96, 0.34);
+  stroke: rgba(47, 88, 96, 0.34);
+  stroke-width: 0.95;
+  vector-effect: non-scaling-stroke;
+}
+
+.marker-right {
+  fill: rgba(47, 88, 96, 0.42);
+  stroke: rgba(47, 88, 96, 0.4);
+}
+
+.marker-upper {
+  stroke: rgba(47, 88, 96, 0.28);
+}
+
+.marker-lower,
+.marker-left {
+  fill: rgba(47, 88, 96, 0.28);
+  stroke: rgba(47, 88, 96, 0.28);
+}
+
+.radar-precision-core-rings {
+  pointer-events: none;
+}
+
+.precision-ring circle,
+.precision-ring path {
+  fill: none;
+  stroke: rgba(47, 88, 96, 0.4);
+  stroke-width: 0.9;
+  vector-effect: non-scaling-stroke;
+}
+
+.precision-ring-bright circle {
+  stroke: rgba(47, 88, 96, 0.6);
+  stroke-width: 1.05;
+}
+
+.precision-ring-thin circle {
+  stroke: rgba(47, 88, 96, 0.34);
+  stroke-linecap: round;
+}
+
+.precision-ring-soft circle {
+  stroke: rgba(47, 88, 96, 0.22);
+}
+
+.precision-ring-arc path {
+  stroke: rgba(47, 88, 96, 0.46);
+  stroke-width: 1.25;
+  stroke-linecap: round;
+}
+
+.guide-line {
+  stroke: rgba(47, 88, 96, 0.16);
+  stroke-width: 0.75;
+}
+
+.guide-axis,
+.guide-cross {
+  stroke: rgba(47, 88, 96, 0.22);
+}
+
+.guide-diagonal {
+  stroke: rgba(47, 88, 96, 0.18);
+}
+
+.guide-diagonal-soft,
+.guide-top {
+  stroke: rgba(47, 88, 96, 0.1);
+}
+
+.guide-node {
+  fill: rgba(47, 88, 96, 0.42);
+  stroke: rgba(246, 243, 234, 0.8);
+  stroke-width: 1;
+}
+
+.radar-poster-bars path {
+  stroke: rgba(47, 88, 96, 0.38);
+  stroke-width: 3.4;
+}
+
+.radar-poster-bars .bar-muted {
+  stroke: rgba(47, 88, 96, 0.16);
+  stroke-width: 2.4;
+}
+
+.radar-axis-lines line {
+  stroke: rgba(47, 88, 96, 0.32);
+  stroke-width: 0.72;
+  vector-effect: non-scaling-stroke;
+}
+
+.radar-divider-lines line {
+  stroke: rgba(47, 88, 96, 0.52);
+  stroke-width: 0.82;
+  vector-effect: non-scaling-stroke;
+}
+
+.radar-sector-hit {
+  fill: transparent;
+  cursor: crosshair;
+  pointer-events: all;
+}
+
+.radar-sector {
+  pointer-events: none;
+  stroke-width: 0.88;
+  transition: fill 180ms ease;
+  vector-effect: non-scaling-stroke;
+}
+
+.radar-sector-texture {
+  fill: url(#microDots);
+  opacity: 0.035;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+}
+
+.radar-sector-scan-edge {
+  fill: none;
+  stroke: rgba(47, 88, 96, 0.46);
+  stroke-width: 1.2;
+  pointer-events: none;
+  vector-effect: non-scaling-stroke;
+}
+
+.radar-value-label {
+  fill: rgba(47, 88, 96, 0.52);
+  font-size: 9px;
+  font-weight: 650;
+  letter-spacing: 0;
+  pointer-events: none;
+}
+
+.radar-dimension-label {
+  fill: #2f5860;
+  font-size: 16.5px;
+  font-weight: 760;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.radar-scale-labels text {
+  fill: rgba(47, 88, 96, 0.24);
+  font-size: 7.2px;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.radar-scale-labels .scale-even {
+  opacity: 0.42;
+}
+
+.radar-scale-labels .scale-odd {
+  opacity: 0.64;
+}
+
+.radar-scale-labels .scale-boundary {
+  opacity: 0.68;
+  font-weight: 700;
+}
+
+.radar-center {
+  transform-box: fill-box;
+  transform-origin: center;
+  pointer-events: none;
+}
+
+.radar-center-field {
+  fill: rgba(47, 88, 96, 0.055);
+  stroke: rgba(47, 88, 96, 0.12);
+  stroke-dasharray: 2 10;
+}
+
+.radar-center-outer {
+  fill: rgba(47, 88, 96, 0.06);
+  stroke: rgba(47, 88, 96, 0.26);
+  stroke-dasharray: 30 11;
+}
+
+.radar-center-halo {
+  fill: rgba(47, 88, 96, 0.1);
+  stroke: rgba(47, 88, 96, 0.28);
+}
+
+.radar-center-lens {
+  fill: url(#centerLens);
+  stroke: rgba(255, 255, 255, 0.62);
+  stroke-width: 0.9;
+}
+
+.radar-center-gleam,
+.radar-center-index {
+  fill: none;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.radar-center-gleam {
+  stroke: rgba(255, 255, 255, 0.72);
+  stroke-width: 1.1;
+}
+
+.radar-center-index {
+  stroke: rgba(47, 88, 96, 0.28);
+  stroke-width: 1;
+  stroke-dasharray: 16 8;
+}
+
+.radar-center-ring {
+  fill: rgba(246, 243, 234, 0.46);
+  stroke: rgba(47, 88, 96, 0.42);
+}
+
+.radar-center-inner {
+  fill: rgba(47, 88, 96, 0.14);
+  stroke: rgba(47, 88, 96, 0.5);
+}
+
+.radar-center-dot {
+  fill: url(#centerPin);
+  stroke: #2f5860;
+  stroke-width: 1;
+}
+
+.radar-center-spark {
+  fill: rgba(255, 255, 255, 0.92);
+  stroke: none;
+}
+
+.radar-center line {
+  stroke: rgba(47, 88, 96, 0.26);
+  stroke-width: 0.72;
+}
+
+.radar-tooltip {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  display: grid;
+  min-width: 138px;
+  gap: 5px;
+  padding: 9px 11px;
+  pointer-events: none;
+  color: #244348;
+  background: rgba(246, 243, 234, 0.82);
+  border: 1px solid rgba(47, 88, 96, 0.24);
+  box-shadow:
+    0 10px 28px rgba(45, 71, 75, 0.12),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.46);
+  backdrop-filter: blur(9px);
+}
+
+.radar-tooltip::before,
+.radar-tooltip::after {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  content: "";
+  border-color: rgba(45, 82, 88, 0.62);
+  border-style: solid;
+}
+
+.radar-tooltip::before {
+  top: -1px;
+  left: -1px;
+  border-width: 1px 0 0 1px;
+}
+
+.radar-tooltip::after {
+  right: -1px;
+  bottom: -1px;
+  border-width: 0 1px 1px 0;
+}
+
+.radar-tooltip span {
+  font-size: 0.72rem;
+  opacity: 0.72;
+}
+
+.radar-tooltip strong {
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.right-panel-column {
+  position: relative;
+  top: auto;
+  right: auto;
+  z-index: 4;
+  display: flex;
+  grid-column: 2;
+  width: 100%;
+  height: min(100%, calc(100vh - 96px));
+  max-height: 100%;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: center;
+  gap: clamp(24px, 3vh, 36px);
+  transform: none;
+}
+
+.radar-data-panel {
+  position: relative;
+  top: auto;
+  left: auto;
+  display: grid;
+  flex: 0 0 auto;
+  gap: clamp(8px, 1.2vh, 12px);
+  width: clamp(360px, 26vw, 470px);
+  max-width: 100%;
+  min-height: 220px;
+  align-self: flex-start;
+  transform: translateX(clamp(-72px, -4vw, -36px));
+  padding: clamp(10px, 1.4vh, 13px) 14px clamp(10px, 1.4vh, 12px);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.58), rgba(231, 237, 231, 0.24)),
+    repeating-linear-gradient(0deg, transparent 0 18px, rgba(47, 88, 96, 0.014) 18px 19px);
+  border: 1px solid rgba(47, 88, 96, 0.16);
+  box-shadow:
+    0 14px 30px rgba(38, 62, 66, 0.055),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.56);
+  backdrop-filter: blur(6px);
+}
+
+.radar-data-panel::before {
+  transform: translate(0, 0);
+}
+
+.radar-data-panel::after {
+  transform: translate(0, 0);
+}
+
+.radar-data-panel::before,
+.radar-data-panel::after {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  content: "";
+  opacity: 0.72;
+  border-color: rgba(47, 88, 96, 0.28);
+  border-style: solid;
+  animation: dataPanelCornerPulse 3.4s ease-in-out infinite;
+}
+
+.radar-data-panel::before {
+  top: -1px;
+  left: -1px;
+  border-width: 1px 0 0 1px;
+}
+
+.radar-data-panel::after {
+  right: -1px;
+  bottom: -1px;
+  border-width: 0 1px 1px 0;
+  animation-delay: 0.8s;
+}
+
+.panel-header,
+.panel-footer,
+.panel-row {
+  display: flex;
+  align-items: center;
+}
+
+.panel-header {
+  justify-content: space-between;
+  gap: 12px;
+  color: rgba(47, 88, 96, 0.68);
+  font-size: 0.7rem;
+  font-weight: 760;
+  letter-spacing: 0;
+}
+
+.status-pill {
+  padding: 3px 7px;
+  color: rgba(246, 243, 234, 0.88);
+  background: rgba(65, 109, 114, 0.62);
+  font-size: 0.62rem;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  will-change: opacity;
+}
+
+.status-preview {
+  background: rgba(113, 129, 110, 0.52);
+}
+
+.status-connecting {
+  background: rgba(106, 123, 130, 0.52);
+}
+
+.panel-values {
+  display: grid;
+  gap: clamp(5px, 0.8vh, 8px);
+  visibility: visible;
+  opacity: 1;
+}
+
+.panel-row {
+  position: relative;
+  gap: 10px;
+  min-height: clamp(15px, 2vh, 18px);
+  visibility: visible;
+  opacity: 1;
+  background-color: rgba(47, 88, 96, 0);
+  transition:
+    background-color 240ms ease,
+    box-shadow 240ms ease;
+}
+
+.panel-row:hover {
+  background-color: rgba(47, 88, 96, 0.052);
+  box-shadow: inset 0 0 0 1px rgba(47, 88, 96, 0.08);
+}
+
+.panel-index {
+  width: 20px;
+  visibility: visible;
+  color: rgba(47, 88, 96, 0.58);
+  font-weight: 760;
+  transition: color 220ms ease;
+}
+
+.panel-bar {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  height: 4px;
+  visibility: visible;
+  overflow: hidden;
+  background:
+    linear-gradient(90deg, rgba(47, 88, 96, 0.07), rgba(47, 88, 96, 0.026)),
+    repeating-linear-gradient(90deg, transparent 0 12px, rgba(47, 88, 96, 0.06) 12px 13px);
+}
+
+.panel-bar-fill {
+  position: relative;
+  z-index: 1;
+  display: block;
+  height: 100%;
+  visibility: visible;
+  opacity: 0.62;
+  background: #2f5860;
+  will-change: width;
+  transition: opacity 220ms ease;
+}
+
+.panel-bar-scan {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  width: 24px;
+  opacity: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.46), transparent);
+  will-change: transform, opacity;
+}
+
+.panel-score {
+  width: 52px;
+  visibility: visible;
+  opacity: 1;
+  text-align: right;
+  color: rgba(47, 88, 96, 0.74);
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  transition: color 220ms ease;
+}
+
+.panel-row:hover .panel-index {
+  color: rgba(47, 88, 96, 0.76);
+}
+
+.panel-row:hover .panel-bar-fill {
+  opacity: 0.78;
+}
+
+.panel-row:hover .panel-score {
+  color: rgba(47, 88, 96, 0.88);
+}
+
+.panel-footer {
+  justify-content: space-between;
+  gap: 12px;
+  color: rgba(47, 88, 96, 0.38);
+  font-size: clamp(0.6rem, 1.2vh, 0.66rem);
+}
+
+.panel-footer span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@keyframes dataPanelCornerPulse {
+  0%,
+  100% {
+    opacity: 0.56;
+  }
+
+  48% {
+    opacity: 0.95;
+  }
+}
+
+@media (max-width: 1180px) and (min-width: 901px) {
+  .dynamic-radar-shell {
+    column-gap: clamp(28px, 3.6vw, 48px);
+    --side-panel-width: clamp(390px, 38vw, 460px);
+    --visual-size: min(48vw, calc(100vh - 146px), 600px);
+  }
+
+  .radar-data-panel {
+    width: clamp(330px, 31vw, 410px);
+    min-height: 210px;
+    transform: translateX(clamp(-34px, -2.4vw, -18px));
+  }
+}
+
+@media (max-width: 900px) {
+  .dynamic-radar-shell {
+    display: flex;
+    height: 100%;
+    min-height: auto;
+    flex-direction: column;
+    justify-content: center;
+    gap: clamp(8px, 1.2vh, 12px);
+    transform: none;
+  }
+
+  .dynamic-radar-shell::before,
+  .dynamic-radar-shell::after {
+    display: none;
+  }
+
+  .radar-copy {
+    position: absolute;
+    top: 0;
+    left: 8px;
+    justify-self: start;
+    padding-left: 8px;
+  }
+
+  .radar-data-panel {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: min(100%, 440px);
+    max-width: 440px;
+    justify-self: center;
+    align-self: flex-end;
+    transform: none;
+  }
+
+  .right-panel-column {
+    position: relative;
+    top: auto;
+    right: auto;
+    width: min(100%, 620px);
+    height: auto;
+    max-height: 48vh;
+    align-items: center;
+    gap: clamp(10px, 1.5vh, 14px);
+    transform: none;
+  }
+
+  .radar-visual-wrap {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: min(100vw - 24px, 38vh, 430px);
+    transform: none;
+  }
+}
+
+@media (max-width: 520px) {
+  .radar-visual-wrap {
+    width: min(100vw - 20px, 430px);
+  }
+
+  .radar-data-panel {
+    padding: 13px;
+  }
+
+  .panel-header,
+  .panel-footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media (max-height: 760px) and (min-width: 901px) {
+  .dynamic-radar-shell {
+    --visual-size: min(52vw, calc(100vh - 142px), 700px);
+  }
+
+  .right-panel-column {
+    gap: clamp(12px, 2vh, 18px);
+  }
+
+  .radar-data-panel {
+    gap: 7px;
+    min-height: 198px;
+    padding: 10px 13px 9px;
+  }
+
+  .panel-row {
+    min-height: 14px;
+  }
+
+  .panel-values {
+    gap: 4px;
+  }
+}

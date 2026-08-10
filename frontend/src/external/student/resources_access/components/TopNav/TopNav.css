@@ -1,0 +1,485 @@
+.top-nav {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 60;
+  display: grid;
+  grid-template-columns: minmax(218px, 340px) minmax(150px, 1fr) minmax(124px, 220px);
+  align-items: center;
+  gap: clamp(18px, 3vw, 42px);
+  height: 72px;
+  padding: 0 clamp(22px, 4vw, 52px);
+  color: #2f5860;
+  background-color: #f6f5ef;
+  background-image:
+    linear-gradient(180deg, rgba(248, 246, 239, 0.62), rgba(244, 246, 239, 0.3)),
+    linear-gradient(105deg, rgba(95, 251, 255, 0.055), transparent 34%, rgba(124, 77, 255, 0.032) 78%, transparent),
+    repeating-linear-gradient(90deg, transparent 0 28px, rgba(47, 88, 96, 0.014) 28px 29px);
+  border-bottom: 1px solid rgba(47, 88, 96, 0.18);
+  box-shadow:
+    0 10px 28px rgba(38, 62, 66, 0.045),
+    inset 0 1px 0 rgba(255, 255, 255, 0.58);
+  backdrop-filter: none;
+}
+
+.top-nav::after {
+  position: absolute;
+  right: clamp(140px, 24vw, 420px);
+  bottom: -1px;
+  left: clamp(260px, 25vw, 430px);
+  height: 1px;
+  content: "";
+  background:
+    linear-gradient(90deg, transparent, rgba(47, 88, 96, 0.28), transparent),
+    repeating-linear-gradient(90deg, rgba(47, 88, 96, 0.16) 0 2px, transparent 2px 18px);
+}
+
+.top-nav-left,
+.top-nav-right {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: clamp(20px, 3vw, 34px);
+}
+
+.top-nav-left {
+  justify-content: center;
+  min-width: 0;
+}
+
+.top-nav-right {
+  justify-content: flex-end;
+  min-width: 0;
+}
+
+.top-brand {
+  position: relative;
+  display: inline-flex;
+  width: max-content;
+  min-width: 214px;
+  max-width: 100%;
+  align-items: center;
+  gap: 12px;
+  padding: 0;
+  color: #20393d;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  outline: 0;
+}
+
+.top-brand:focus-visible,
+.top-brand:focus-visible .teacher-brand-icon {
+  outline: 2px solid rgba(42, 214, 232, 0.52);
+  outline-offset: 4px;
+}
+
+.teacher-brand-icon {
+  position: relative;
+  display: block;
+  flex: 0 0 auto;
+  width: 52px;
+  height: 52px;
+  border: 0;
+  border-radius: 17px;
+  outline: 0;
+  background:
+    radial-gradient(circle at 26% 18%, rgba(255, 255, 255, 0.72), transparent 22%),
+    radial-gradient(circle at 72% 74%, rgba(80, 250, 255, 0.2), transparent 36%),
+    linear-gradient(145deg, #16213c 0%, #2244d8 44%, #7d43ff 72%, #16d4c8 100%);
+  box-shadow:
+    0 14px 32px rgba(43, 78, 142, 0.2),
+    0 0 24px rgba(45, 222, 239, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.48),
+    inset 0 -14px 26px rgba(5, 7, 22, 0.26);
+  overflow: visible;
+  isolation: isolate;
+  transition:
+    transform 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.teacher-brand-icon::before,
+.teacher-brand-icon::after {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  content: "";
+}
+
+.teacher-brand-icon::before {
+  z-index: 3;
+  box-shadow:
+    inset 0 0 0 1px rgba(190, 248, 255, 0.48),
+    inset 0 0 0 2px rgba(145, 108, 255, 0.18);
+}
+
+.teacher-brand-icon::after {
+  z-index: 4;
+  background: linear-gradient(112deg, transparent 0 28%, rgba(255, 255, 255, 0.7) 42%, rgba(91, 248, 255, 0.32) 48%, transparent 62%);
+  mix-blend-mode: screen;
+  opacity: 0.42;
+  transform: translateX(-42%) skewX(-18deg);
+  transition:
+    opacity 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 760ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.top-brand:hover .teacher-brand-icon {
+  filter: saturate(1.12) contrast(1.04);
+  box-shadow:
+    0 17px 36px rgba(43, 78, 142, 0.25),
+    0 0 30px rgba(45, 222, 239, 0.26),
+    0 0 22px rgba(142, 92, 255, 0.17),
+    inset 0 1px 0 rgba(255, 255, 255, 0.58),
+    inset 0 -14px 26px rgba(5, 7, 22, 0.24);
+  transform: translateY(-2px) scale(1.035) rotate(2deg);
+}
+
+.top-brand:hover .teacher-brand-icon::after {
+  opacity: 0.72;
+  transform: translateX(44%) skewX(-18deg);
+}
+
+.prism-logo-glow {
+  position: absolute;
+  inset: 7px;
+  z-index: 0;
+  border-radius: 14px;
+  background:
+    radial-gradient(circle at 30% 34%, rgba(92, 251, 255, 0.42), transparent 34%),
+    radial-gradient(circle at 68% 62%, rgba(255, 79, 216, 0.3), transparent 38%);
+  filter: blur(10px);
+  opacity: 0.82;
+}
+
+.prism-logo-core {
+  position: absolute;
+  inset: 8px;
+  z-index: 2;
+  transform-style: preserve-3d;
+}
+
+.prism-logo-facet,
+.prism-logo-ray,
+.prism-logo-nucleus {
+  position: absolute;
+  display: block;
+  pointer-events: none;
+}
+
+.prism-logo-facet {
+  border: 1px solid rgba(215, 252, 255, 0.34);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.38),
+    0 0 12px rgba(70, 245, 255, 0.14);
+  backdrop-filter: blur(3px);
+}
+
+.prism-logo-facet-a {
+  top: 3px;
+  left: 6px;
+  width: 23px;
+  height: 27px;
+  clip-path: polygon(44% 0, 100% 32%, 70% 100%, 0 72%, 6% 22%);
+  background: linear-gradient(138deg, rgba(255, 255, 255, 0.62), rgba(86, 239, 255, 0.64) 42%, rgba(23, 74, 255, 0.28));
+  transform: rotate(-15deg);
+}
+
+.prism-logo-facet-b {
+  top: 9px;
+  right: 4px;
+  width: 21px;
+  height: 24px;
+  clip-path: polygon(18% 10%, 100% 0, 82% 74%, 36% 100%, 0 50%);
+  background: linear-gradient(148deg, rgba(153, 116, 255, 0.84), rgba(255, 255, 255, 0.36) 52%, rgba(59, 251, 255, 0.28));
+  transform: rotate(17deg);
+}
+
+.prism-logo-facet-c {
+  bottom: 5px;
+  left: 12px;
+  width: 23px;
+  height: 20px;
+  clip-path: polygon(0 14%, 58% 0, 100% 48%, 74% 100%, 18% 82%);
+  background: linear-gradient(145deg, rgba(255, 79, 216, 0.42), rgba(92, 251, 255, 0.68), rgba(255, 255, 255, 0.42));
+  transform: rotate(9deg);
+}
+
+.prism-logo-facet-d {
+  top: 15px;
+  left: 17px;
+  width: 17px;
+  height: 18px;
+  clip-path: polygon(50% 0, 100% 42%, 76% 100%, 16% 88%, 0 28%);
+  background: radial-gradient(circle at 32% 24%, rgba(255, 255, 255, 0.9), rgba(109, 123, 255, 0.44) 44%, rgba(18, 28, 62, 0.12));
+  box-shadow:
+    0 0 18px rgba(255, 255, 255, 0.24),
+    0 0 16px rgba(91, 248, 255, 0.22);
+}
+
+.prism-logo-facet-e {
+  right: -1px;
+  bottom: 8px;
+  width: 14px;
+  height: 18px;
+  clip-path: polygon(34% 0, 100% 28%, 72% 100%, 0 72%);
+  background: linear-gradient(140deg, rgba(255, 255, 255, 0.42), rgba(119, 75, 255, 0.58), rgba(32, 246, 255, 0.2));
+  transform: rotate(-7deg);
+}
+
+.prism-logo-ray {
+  height: 1.5px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, rgba(228, 255, 255, 0.9), rgba(90, 242, 255, 0.62), transparent);
+  opacity: 0.74;
+  filter: drop-shadow(0 0 5px rgba(72, 239, 255, 0.38));
+}
+
+.prism-logo-ray-a {
+  top: 16px;
+  right: -4px;
+  width: 24px;
+  transform: rotate(-17deg);
+}
+
+.prism-logo-ray-b {
+  bottom: 13px;
+  left: -4px;
+  width: 25px;
+  transform: rotate(17deg);
+}
+
+.prism-logo-nucleus {
+  top: 18px;
+  left: 20px;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow:
+    0 0 10px rgba(255, 255, 255, 0.72),
+    0 0 18px rgba(81, 247, 255, 0.42);
+}
+
+.top-brand-name {
+  position: relative;
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+.top-brand-name::after {
+  position: absolute;
+  right: 0;
+  bottom: -7px;
+  left: 0;
+  height: 1px;
+  content: "";
+  background: linear-gradient(90deg, rgba(42, 214, 232, 0.46), rgba(182, 156, 255, 0.34), transparent);
+  opacity: 0;
+  transform: scaleX(0.45);
+  transform-origin: left center;
+  transition:
+    opacity 220ms ease,
+    transform 360ms ease;
+}
+
+.top-brand strong,
+.top-brand em {
+  display: block;
+  letter-spacing: 0;
+  text-align: left;
+  transition:
+    color 180ms ease,
+    opacity 180ms ease;
+}
+
+.top-brand strong {
+  color: rgba(28, 53, 59, 0.96);
+  font-size: 1.49rem;
+  font-weight: 900;
+  line-height: 1.1;
+}
+
+.top-brand em {
+  color: rgba(47, 88, 96, 0.62);
+  font-size: 1.15rem;
+  font-style: normal;
+  font-weight: 650;
+}
+
+.top-brand:hover strong {
+  color: rgba(16, 32, 45, 0.94);
+}
+
+.top-brand:hover em {
+  color: rgba(47, 88, 96, 0.68);
+}
+
+.top-brand:hover .top-brand-name::after {
+  opacity: 0.85;
+  transform: scaleX(1);
+}
+
+.top-nav-button {
+  position: relative;
+  min-width: 0;
+  padding: 8px 0;
+  color: rgba(41, 78, 86, 0.78);
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  cursor: pointer;
+  font-size: 1.31rem;
+  font-weight: 760;
+  line-height: 1;
+  transition:
+    color 160ms ease,
+    opacity 160ms ease,
+    transform 160ms ease;
+}
+
+.top-nav-button::before {
+  position: absolute;
+  bottom: -7px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  content: "";
+  background: currentColor;
+  opacity: 0;
+  transform: scaleX(0.45);
+  transform-origin: left center;
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease;
+}
+
+.top-nav-button::after {
+  position: absolute;
+  top: 50%;
+  left: -13px;
+  width: 5px;
+  height: 5px;
+  content: "";
+  background: currentColor;
+  border-radius: 50%;
+  opacity: 0;
+  transform: translateY(-50%);
+}
+
+.top-nav-button:hover,
+.top-nav-button.is-active {
+  color: rgba(27, 52, 58, 0.98);
+}
+
+.top-nav-button:hover {
+  transform: translateY(-1px);
+}
+
+.top-nav-button:hover::before,
+.top-nav-button.is-active::before {
+  opacity: 0.72;
+  transform: scaleX(1);
+}
+
+.top-nav-button.is-active::after {
+  opacity: 0.5;
+}
+
+.top-nav-mark {
+  display: none;
+  position: absolute;
+  left: 50%;
+  align-items: center;
+  gap: 7px;
+  transform: translateX(-50%);
+}
+
+.top-nav-mark span {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(47, 88, 96, 0.2);
+}
+
+.top-nav-mark span:nth-child(2) {
+  width: 7px;
+  height: 7px;
+  background: rgba(47, 88, 96, 0.38);
+  box-shadow: 0 0 0 6px rgba(47, 88, 96, 0.045);
+}
+
+.top-user-popover {
+  position: absolute;
+  top: 48px;
+  right: 44px;
+  z-index: 21;
+  display: grid;
+  width: 190px;
+  gap: 5px;
+  padding: 12px 13px;
+  color: rgba(28, 53, 59, 0.92);
+  background: rgba(250, 248, 241, 0.96);
+  border: 1px solid rgba(47, 88, 96, 0.22);
+  box-shadow: 0 16px 32px rgba(38, 62, 66, 0.08);
+}
+
+.top-user-popover span {
+  font-size: 1.15rem;
+  font-weight: 760;
+}
+
+.top-user-popover small {
+  color: rgba(47, 88, 96, 0.44);
+  font-size: 1.03rem;
+}
+
+@media (max-width: 620px) {
+  .top-nav {
+    grid-template-columns: minmax(150px, 1fr) auto auto;
+    height: 66px;
+    padding: 0 14px;
+    gap: 10px;
+  }
+
+  .top-nav-left,
+  .top-nav-right {
+    gap: 16px;
+  }
+
+  .top-nav-button {
+    font-size: 1.21rem;
+  }
+
+  .teacher-brand-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 14px;
+  }
+
+  .prism-logo-core {
+    inset: 7px;
+  }
+
+  .top-brand {
+    gap: 8px;
+    min-width: 150px;
+  }
+
+  .top-brand strong {
+    font-size: 1.29rem;
+  }
+
+  .top-brand em {
+    font-size: 1.03rem;
+  }
+
+  .top-nav-mark {
+    display: none;
+  }
+}

@@ -1,0 +1,992 @@
+[data-testid="external-student-tutoring"] {
+  width: 100%;
+  max-width: 100%;
+  min-height: 100%;
+  overflow-x: hidden;
+}
+
+.tutoring-page .student-shell-content {
+  width: 100%;
+  padding-top: clamp(18px, 2.8vh, 30px);
+  overflow-x: hidden;
+  overflow-y: visible;
+}
+
+.tutor-workbench {
+  position: relative;
+  z-index: 4;
+  display: grid;
+  grid-template-columns: minmax(640px, 1fr) minmax(340px, 500px);
+  gap: clamp(18px, 2.4vw, 32px);
+  align-items: stretch;
+  min-height: calc(100vh - var(--student-header-height) - 60px);
+  min-height: calc(100dvh - var(--student-header-height) - 60px);
+  max-width: 100%;
+  min-width: 0;
+  overflow: visible;
+}
+
+.tutor-main,
+.tutor-side {
+  min-height: 0;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.tutor-main {
+  display: grid;
+  grid-template-rows: auto auto minmax(520px, 1fr);
+  gap: 12px;
+  overflow: visible;
+}
+
+.tutor-heading h1 {
+  margin: 0;
+  color: var(--student-text-main);
+  font-size: clamp(2.16rem, 3vw, 3.12rem);
+  font-weight: 950;
+  letter-spacing: 0;
+  line-height: 1.02;
+}
+
+.tutor-heading p {
+  max-width: 820px;
+  margin: 6px 0 0;
+  color: var(--student-text-muted);
+  font-size: 1rem;
+  font-weight: 650;
+  line-height: 1.55;
+}
+
+.tutor-quick-tags {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(104px, 1fr));
+  gap: 10px;
+}
+
+.tutor-quick-tags button {
+  display: inline-flex;
+  min-width: 0;
+  min-height: 42px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--student-text);
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(47, 88, 96, 0.15);
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 0.92rem;
+  font-weight: 820;
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease,
+    background 160ms ease;
+}
+
+.tutor-quick-tags button:hover,
+.tutor-quick-tags button.is-active {
+  background: rgba(255, 255, 255, 0.96);
+  border-color: rgba(47, 121, 136, 0.42);
+  transform: translateY(-1px);
+}
+
+.tutor-quick-tags span {
+  display: grid;
+  width: 22px;
+  height: 22px;
+  place-items: center;
+  color: #356e79;
+  background: rgba(70, 121, 135, 0.1);
+  border-radius: 50%;
+  font-weight: 900;
+}
+
+.tutor-chat-panel {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto auto auto;
+  min-height: 520px;
+  padding: 18px 28px 14px;
+  overflow: hidden;
+}
+
+.tutor-chat-panel .generation-progress {
+  margin: 10px 0 4px;
+  background: rgba(247, 251, 248, 0.72);
+}
+
+.tutor-chat-scroll {
+  pointer-events: auto;
+  display: grid;
+  align-content: start;
+  gap: 14px;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 0 4px 12px 0;
+  border-bottom: 1px dashed rgba(47, 88, 96, 0.18);
+}
+
+.tutoring-page::before,.tutoring-page::after,.tutor-workbench::before,.tutor-workbench::after{pointer-events:none}
+
+.tutor-empty-chat {
+  display: grid;
+  gap: 8px;
+  min-height: 180px;
+  place-content: center;
+  padding: 24px;
+  color: rgba(41, 78, 86, 0.66);
+  text-align: center;
+  background: rgba(255, 255, 255, 0.44);
+  border: 1px dashed rgba(47, 88, 96, 0.16);
+  border-radius: var(--student-radius);
+}
+
+.tutor-empty-chat strong {
+  color: var(--student-text-main);
+  font-size: 1.04rem;
+  font-weight: 900;
+}
+
+.tutor-empty-chat p {
+  max-width: 480px;
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 660;
+  line-height: 1.6;
+}
+
+.tutor-message {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  min-width: 0;
+}
+
+.tutor-message.is-user {
+  justify-content: flex-end;
+}
+
+.tutor-avatar {
+  flex: 0 0 auto;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+}
+
+.tutor-avatar-ai {
+  position: relative;
+  background:
+    radial-gradient(circle at 50% 62%, #153e4a 0 19%, transparent 20%),
+    radial-gradient(circle at 38% 51%, #6ff9ff 0 4px, transparent 5px),
+    radial-gradient(circle at 62% 51%, #6ff9ff 0 4px, transparent 5px),
+    linear-gradient(180deg, #eff7fa, #d5e8ed);
+  border: 1px solid rgba(47, 88, 96, 0.12);
+}
+
+.tutor-avatar-ai i {
+  position: absolute;
+  top: 14px;
+  left: 15px;
+  width: 28px;
+  height: 16px;
+  background: #123342;
+  border-radius: 10px;
+  box-shadow: 0 0 16px rgba(39, 216, 232, 0.26);
+}
+
+.tutor-avatar-user {
+  background:
+    radial-gradient(circle at 50% 34%, #5b8ef1 0 13%, transparent 14%),
+    radial-gradient(ellipse at 50% 84%, #6fa4ff 0 30%, transparent 31%),
+    linear-gradient(180deg, #eaf3ff, #cae1ff);
+  border: 1px solid rgba(36, 103, 216, 0.14);
+}
+
+.tutor-message-stack {
+  display: grid;
+  gap: 7px;
+  min-width: 0;
+  max-width: min(680px, 74%);
+}
+
+.tutor-message-stack > strong {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--student-text);
+  font-size: 0.9rem;
+  font-weight: 900;
+}
+
+.tutor-message-stack > strong span {
+  padding: 3px 7px;
+  color: #2e7593;
+  background: rgba(70, 151, 195, 0.12);
+  border-radius: 5px;
+  font-size: 0.74rem;
+}
+
+.tutor-bubble {
+  padding: 12px 18px;
+  color: var(--student-text-main);
+  background: rgba(255, 255, 255, 0.68);
+  border: 1px solid rgba(47, 88, 96, 0.14);
+  border-radius: 8px;
+  font-size: 0.94rem;
+  font-weight: 640;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.tutor-bubble p {
+  margin: 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.is-user .tutor-bubble {
+  color: #1f4050;
+  background: rgba(221, 238, 255, 0.8);
+  border-color: rgba(36, 103, 216, 0.18);
+  border-radius: 12px 6px 12px 12px;
+  font-size: 1rem;
+}
+
+.tutor-message-stack time {
+  color: rgba(41, 78, 86, 0.45);
+  font-size: 0.78rem;
+  font-weight: 650;
+}
+
+.is-user .tutor-message-stack time {
+  justify-self: end;
+}
+
+.tutor-thinking {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tutor-thinking i {
+  display: inline-block;
+  width: 32px;
+  height: 8px;
+  background: radial-gradient(circle, #4e7dd6 0 3px, transparent 3.5px) 0 50% / 12px 8px repeat-x;
+  animation: tutorThinking 900ms ease-in-out infinite;
+}
+
+.tutor-general-note {
+  display: inline-flex;
+  margin-top: 10px;
+  color: rgba(41, 78, 86, 0.58);
+  font-size: 0.82rem;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.tutor-warning-list,
+.tutor-reference-list {
+  display: grid;
+  gap: 8px;
+  margin-top: 11px;
+}
+
+.tutor-warning-list span {
+  padding: 8px 10px;
+  color: #9a6a20;
+  background: rgba(236, 177, 72, 0.14);
+  border: 1px solid rgba(236, 177, 72, 0.22);
+  border-radius: 7px;
+  font-size: 0.82rem;
+}
+
+.tutor-reference-item {
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.56);
+  border: 1px solid rgba(47, 88, 96, 0.12);
+  border-radius: 8px;
+}
+
+.tutor-reference-item strong {
+  color: var(--student-text-main);
+  font-size: 0.82rem;
+  font-weight: 900;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.tutor-reference-item span,
+.tutor-reference-item p {
+  margin: 0;
+  color: rgba(41, 78, 86, 0.64);
+  font-size: 0.78rem;
+  font-weight: 650;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.tutor-reference-trigger {
+  display: inline-flex;
+  min-height: 34px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 11px;
+  padding: 6px 11px;
+  color: #275d68;
+  background: rgba(234, 247, 244, 0.84);
+  border: 1px solid rgba(47, 126, 112, 0.2);
+  border-radius: 7px;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 820;
+}
+
+.tutor-reference-trigger span {
+  display: inline-grid;
+  min-width: 21px;
+  min-height: 21px;
+  place-items: center;
+  color: #fff;
+  background: #3b8877;
+  border-radius: 999px;
+  font-size: 0.7rem;
+}
+
+.tutor-reference-trigger:hover,
+.tutor-reference-trigger:focus-visible {
+  background: rgba(218, 241, 235, 0.96);
+  border-color: rgba(47, 126, 112, 0.38);
+  outline: 0;
+}
+
+.tutor-reference-dialog-backdrop {
+  position: fixed;
+  z-index: 1200;
+  display: grid;
+  inset: 0;
+  place-items: center;
+  padding: 24px;
+  background: rgba(24, 48, 54, 0.34);
+  backdrop-filter: blur(8px);
+}
+
+.tutor-reference-dialog {
+  display: grid;
+  width: min(760px, 100%);
+  max-height: min(78vh, 760px);
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  overflow: hidden;
+  background: rgba(249, 252, 249, 0.98);
+  border: 1px solid rgba(47, 88, 96, 0.2);
+  border-radius: 14px;
+  box-shadow: 0 28px 80px rgba(24, 48, 54, 0.22);
+}
+
+.tutor-reference-dialog > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 18px 20px 14px;
+  border-bottom: 1px solid rgba(47, 88, 96, 0.12);
+}
+
+.tutor-reference-dialog > header small,
+.tutor-reference-dialog > header h2 {
+  display: block;
+  margin: 0;
+}
+
+.tutor-reference-dialog > header small {
+  color: rgba(41, 78, 86, 0.6);
+  font-size: 0.76rem;
+  font-weight: 760;
+}
+
+.tutor-reference-dialog > header h2 {
+  margin-top: 3px;
+  color: var(--student-text-main);
+  font-size: 1.18rem;
+}
+
+.tutor-reference-dialog > header > button {
+  width: 36px;
+  height: 36px;
+  flex: 0 0 auto;
+  color: rgba(41, 78, 86, 0.72);
+  background: rgba(236, 244, 242, 0.9);
+  border: 1px solid rgba(47, 88, 96, 0.14);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1.35rem;
+}
+
+.tutor-reference-dialog-list {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  min-height: 0;
+  padding: 16px 20px;
+  overflow-y: auto;
+}
+
+.tutor-reference-dialog .tutor-reference-item {
+  padding: 13px 14px;
+  background: rgba(255, 255, 255, 0.86);
+}
+
+.tutor-reference-item-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.tutor-reference-item-heading span,
+.tutor-reference-item > small {
+  color: rgba(41, 78, 86, 0.58);
+  font-size: 0.72rem;
+  font-weight: 720;
+}
+
+.tutor-reference-dialog > footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 12px 20px 16px;
+  border-top: 1px solid rgba(47, 88, 96, 0.1);
+}
+
+.tutor-rating-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tutor-rating-row button {
+  min-height: 28px;
+  padding: 0 9px;
+  color: rgba(41, 78, 86, 0.68);
+  background: rgba(255, 255, 255, 0.64);
+  border: 1px solid rgba(47, 88, 96, 0.12);
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 760;
+}
+
+.tutor-rating-row button:hover,
+.tutor-rating-row button.is-active {
+  color: #2e7593;
+  background: rgba(70, 151, 195, 0.14);
+  border-color: rgba(47, 121, 136, 0.34);
+}
+
+.tutor-answer-mode {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 18px;
+  align-items: center;
+  padding: 13px 0 10px;
+}
+
+.tutor-answer-mode > span {
+  color: var(--student-text-main);
+  font-size: 0.94rem;
+  font-weight: 900;
+}
+
+.tutor-answer-mode > div {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(120px, 1fr));
+  gap: 14px;
+}
+
+.tutor-answer-mode button {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  min-width: 0;
+  min-height: 48px;
+  align-items: center;
+  gap: 5px 9px;
+  color: var(--student-text);
+  text-align: left;
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(47, 88, 96, 0.14);
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 800;
+  transition:
+    transform 160ms ease,
+    background 160ms ease,
+    border-color 160ms ease;
+}
+
+.tutor-answer-mode button strong {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.tutor-answer-mode button:hover,
+.tutor-answer-mode button.is-active {
+  color: #fff;
+  background: linear-gradient(180deg, #5b8994, #3f7480);
+  border-color: rgba(47, 88, 96, 0.22);
+  transform: translateY(-1px);
+}
+
+.tutor-answer-mode button small {
+  grid-column: 2;
+  opacity: 0.7;
+  font-size: 0.72rem;
+  font-weight: 650;
+}
+
+.tutor-context-input {
+  min-height: 62px;
+  max-height: 92px;
+  margin-bottom: 10px;
+  resize: vertical;
+}
+
+.tutor-input-form {
+  display: grid;
+  gap: 8px;
+}
+
+.tutor-input-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 58px;
+  gap: 14px;
+  align-items: center;
+}
+
+.tutor-input-row .student-textarea {
+  height: 52px;
+  min-height: 52px;
+  overflow: hidden;
+  resize: none;
+}
+
+.tutor-send-button {
+  width: 52px;
+  height: 52px;
+  min-height: 52px;
+  padding: 0;
+  font-size: 1.42rem;
+}
+
+.tutor-input-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  color: rgba(41, 78, 86, 0.5);
+  font-size: 0.8rem;
+  font-weight: 680;
+}
+
+.tutor-input-footer label {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.tutor-input-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+.tutor-input-actions .student-secondary-button {
+  min-height: 30px;
+  padding-inline: 12px;
+  font-size: 0.78rem;
+}
+
+.tutor-status-message,
+.tutor-error-message {
+  min-height: 18px;
+  margin: 0;
+  font-size: 0.82rem;
+  font-weight: 720;
+}
+
+.tutor-status-message {
+  color: rgba(41, 78, 86, 0.62);
+}
+
+.tutor-error-message {
+  color: #b34b4b;
+}
+
+.tutor-side {
+  display: grid;
+  grid-template-rows: auto minmax(260px, auto) auto;
+  gap: 12px;
+  min-height: 0;
+  overflow: visible;
+}
+
+.tutor-assistant-card,
+.tutor-history-card,
+.tutor-suggestion-card {
+  min-height: 0;
+  padding: 15px;
+}
+
+.tutor-card-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.tutor-card-title h2,
+.tutor-suggestion-card h2 {
+  margin: 0;
+  color: var(--student-text-main);
+  font-size: 1.05rem;
+  font-weight: 900;
+}
+
+.tutor-card-title span {
+  padding: 6px 11px;
+  color: #1f8b66;
+  background: rgba(57, 190, 136, 0.1);
+  border: 1px solid rgba(57, 190, 136, 0.16);
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 820;
+}
+
+.tutor-card-title button {
+  color: rgba(41, 78, 86, 0.58);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-weight: 760;
+}
+
+.tutor-assistant-orbit {
+  height: min(13vh, 96px);
+  margin: 5px 0 7px;
+  opacity: 0.48;
+  background:
+    radial-gradient(ellipse at center, rgba(39, 216, 232, 0.14), transparent 38%),
+    repeating-radial-gradient(circle at center, rgba(47, 88, 96, 0.12) 0 1px, transparent 1px 26px),
+    conic-gradient(from 12deg, transparent 0 28deg, rgba(47, 88, 96, 0.14) 28deg 29deg, transparent 29deg 80deg);
+  mask-image: radial-gradient(ellipse at center, #000 0%, transparent 75%);
+}
+
+.tutor-assistant-card > p,
+.tutor-suggestion-card p {
+  margin: 0;
+  color: rgba(41, 78, 86, 0.72);
+  font-size: 0.84rem;
+  font-weight: 760;
+  text-align: center;
+}
+
+.tutor-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.tutor-metrics span {
+  display: grid;
+  gap: 4px;
+  justify-items: center;
+  padding: 7px 5px;
+  background: rgba(255, 255, 255, 0.58);
+  border: 1px solid rgba(47, 88, 96, 0.1);
+  border-radius: 8px;
+}
+
+.tutor-metrics i {
+  color: rgba(41, 78, 86, 0.62);
+  font-size: 0.72rem;
+  font-style: normal;
+  font-weight: 760;
+}
+
+.tutor-metrics strong {
+  color: var(--student-text-main);
+  font-size: 0.94rem;
+  font-weight: 950;
+  line-height: 1.2;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.tutor-history-card {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+}
+
+.tutor-history-list {
+  display: grid;
+  min-height: 0;
+  max-height: min(380px, 44vh);
+  margin-top: 10px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border: 1px solid rgba(47, 88, 96, 0.09);
+  border-radius: var(--student-radius);
+}
+
+.tutor-history-list button {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+  min-height: 48px;
+  padding: 7px 10px;
+  color: var(--student-text);
+  text-align: left;
+  background: rgba(255, 255, 255, 0.5);
+  border: 0;
+  border-bottom: 1px solid rgba(47, 88, 96, 0.09);
+  cursor: pointer;
+}
+
+.tutor-history-list button:last-child {
+  border-bottom: 0;
+}
+
+.tutor-history-list button:hover {
+  background: rgba(255, 255, 255, 0.82);
+}
+
+.tutor-history-list button > span {
+  display: grid;
+  width: 30px;
+  height: 30px;
+  place-items: center;
+  color: #477b86;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(47, 88, 96, 0.12);
+  border-radius: 50%;
+  font-size: 0.82rem;
+  font-weight: 900;
+}
+
+.tutor-history-list strong {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+  overflow: hidden;
+  color: var(--student-text-main);
+  font-size: 0.82rem;
+  font-weight: 820;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tutor-history-list small {
+  overflow: hidden;
+  color: rgba(41, 78, 86, 0.58);
+  font-size: 0.72rem;
+  font-weight: 680;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tutor-history-list time {
+  color: rgba(41, 78, 86, 0.54);
+  font-size: 0.76rem;
+  font-weight: 680;
+}
+
+.tutor-list-state {
+  margin: 0;
+  padding: 16px 14px;
+  color: rgba(41, 78, 86, 0.62);
+  font-size: 0.86rem;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.tutor-list-state--compact {
+  padding: 10px 0 0;
+  text-align: left;
+}
+
+.tutor-suggestion-card {
+  display: grid;
+  gap: 8px;
+  align-content: start;
+}
+
+.tutor-suggestion-card p {
+  text-align: left;
+}
+
+.tutor-related {
+  display: grid;
+  gap: 5px;
+}
+
+.tutor-related span {
+  overflow: hidden;
+  color: rgba(41, 78, 86, 0.62);
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tutor-suggestion-card .student-secondary-button {
+  justify-content: space-between;
+  width: 100%;
+  min-height: 36px;
+  margin-top: 2px;
+  padding-inline: 14px;
+  font-size: 0.86rem;
+  line-height: 1.35;
+  text-align: left;
+  white-space: normal;
+}
+
+@keyframes tutorThinking {
+  0%,
+  100% {
+    opacity: 0.42;
+    transform: translateX(-2px);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translateX(2px);
+  }
+}
+
+@media (max-width: 1280px) {
+  .tutor-workbench {
+    grid-template-columns: minmax(620px, 1fr) minmax(330px, 430px);
+  }
+
+  .tutor-chat-panel {
+    padding-inline: 26px;
+  }
+}
+
+@media (max-width: 1080px) {
+  .tutor-workbench {
+    grid-template-columns: 1fr;
+  }
+
+  .tutor-side {
+    display: grid;
+  }
+
+  .tutor-chat-panel {
+    min-height: min(620px, calc(100dvh - var(--student-header-height) - 120px));
+  }
+}
+
+@media (max-height: 760px) {
+  .tutor-main {
+    gap: 10px;
+  }
+
+  .tutor-heading h1 {
+    font-size: 2rem;
+  }
+
+  .tutor-quick-tags button {
+    min-height: 38px;
+  }
+
+  .tutor-chat-panel {
+    padding: 14px 22px 12px;
+  }
+
+  .tutor-chat-scroll {
+    gap: 12px;
+    padding-bottom: 10px;
+  }
+
+  .tutor-avatar {
+    width: 46px;
+    height: 46px;
+  }
+
+  .tutor-bubble {
+    padding: 10px 15px;
+    line-height: 1.45;
+  }
+
+  .tutor-answer-mode {
+    padding: 10px 0 8px;
+  }
+
+  .tutor-answer-mode button {
+    min-height: 40px;
+  }
+
+  .tutor-input-row .student-textarea,
+  .tutor-send-button {
+    height: 48px;
+    min-height: 48px;
+  }
+
+  .tutor-side {
+    gap: 10px;
+    grid-template-rows: auto minmax(220px, auto) auto;
+  }
+
+  .tutor-assistant-card,
+  .tutor-history-card,
+  .tutor-suggestion-card {
+    padding: 12px;
+  }
+
+  .tutor-assistant-orbit {
+    height: 68px;
+  }
+
+  .tutor-history-list button {
+    min-height: 43px;
+  }
+}
+
+@media (max-width: 720px) {
+  .tutor-quick-tags,
+  .tutor-answer-mode > div {
+    grid-template-columns: 1fr;
+  }
+
+  .tutor-answer-mode {
+    grid-template-columns: 1fr;
+  }
+
+  .tutor-message-stack {
+    max-width: min(100%, 82vw);
+  }
+
+  .tutor-reference-dialog-backdrop {
+    align-items: end;
+    padding: 12px;
+  }
+
+  .tutor-reference-dialog {
+    max-height: 86vh;
+  }
+}

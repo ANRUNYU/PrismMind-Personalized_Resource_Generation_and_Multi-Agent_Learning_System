@@ -1,0 +1,182 @@
+.resource-type-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 9px;
+}
+
+.resource-type-chip {
+  position: relative;
+  display: grid;
+  min-width: 0;
+  grid-template-columns: auto auto minmax(0, 1fr);
+  align-items: center;
+  min-width: 0;
+  min-height: 74px;
+  gap: 8px;
+  padding: 12px 14px 14px;
+  overflow: hidden;
+  color: rgba(41, 78, 86, 0.76);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.64), rgba(224, 236, 231, 0.28)),
+    repeating-linear-gradient(90deg, transparent 0 18px, rgba(47, 88, 96, 0.016) 18px 19px);
+  border: 1px solid rgba(47, 88, 96, 0.2);
+  border-radius: 0;
+  cursor: pointer;
+  font-size: 1.23rem;
+  font-weight: 720;
+  line-height: 1.22;
+  text-align: left;
+  transition:
+    background 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease,
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+.resource-type-chip::before {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  left: 12px;
+  height: 1px;
+  content: "";
+  background:
+    linear-gradient(90deg, rgba(47, 88, 96, 0.18), transparent 65%),
+    repeating-linear-gradient(90deg, rgba(47, 88, 96, 0.14) 0 2px, transparent 2px 14px);
+  opacity: 0.62;
+}
+
+.resource-type-chip::after {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 8px;
+  height: 8px;
+  content: "";
+  border-color: rgba(47, 88, 96, 0.2);
+  border-style: solid;
+  border-width: 0 1px 1px 0;
+  opacity: 0;
+  transition: opacity 180ms ease;
+}
+
+.resource-type-chip:hover:not(:disabled) {
+  color: rgba(29, 57, 64, 0.94);
+  background:
+    linear-gradient(135deg, rgba(253, 251, 244, 0.78), rgba(220, 232, 226, 0.36)),
+    repeating-linear-gradient(90deg, transparent 0 18px, rgba(47, 88, 96, 0.022) 18px 19px);
+  border-color: rgba(47, 88, 96, 0.34);
+  transform: translateY(-1px);
+}
+
+.resource-type-chip.is-selected {
+  color: rgba(25, 49, 55, 0.98);
+  background:
+    linear-gradient(135deg, rgba(205, 224, 219, 0.58), rgba(246, 243, 234, 0.44)),
+    repeating-linear-gradient(90deg, transparent 0 18px, rgba(47, 88, 96, 0.028) 18px 19px);
+  border-color: rgba(47, 88, 96, 0.42);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.56),
+    inset 0 12px 28px rgba(255, 255, 255, 0.18);
+}
+
+.resource-type-chip.is-selected::after {
+  opacity: 1;
+}
+
+.resource-type-chip:disabled {
+  cursor: not-allowed;
+  opacity: 0.58;
+}
+
+.resource-type-dot {
+  width: 5px;
+  height: 5px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: rgba(47, 88, 96, 0.38);
+  transition:
+    background 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.resource-type-index {
+  color: rgba(47, 88, 96, 0.5);
+  font-size: 1.07rem;
+  font-variant-numeric: tabular-nums;
+  font-weight: 780;
+}
+
+.resource-type-name {
+  min-width: 0;
+  overflow: hidden;
+  color: inherit;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.resource-type-marker {
+  position: absolute;
+  top: 9px;
+  right: 10px;
+  width: 14px;
+  height: 14px;
+  opacity: 0;
+  transform: scale(0.76);
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+.resource-type-marker::before,
+.resource-type-marker::after {
+  position: absolute;
+  content: "";
+  background: rgba(47, 88, 96, 0.46);
+}
+
+.resource-type-marker::before {
+  top: 50%;
+  right: 0;
+  left: 0;
+  height: 1px;
+}
+
+.resource-type-marker::after {
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+}
+
+.resource-type-chip.is-selected .resource-type-dot {
+  background: rgba(47, 88, 96, 0.66);
+  box-shadow: 0 0 0 5px rgba(47, 88, 96, 0.045);
+}
+
+.resource-type-chip.is-selected .resource-type-index {
+  color: rgba(47, 88, 96, 0.48);
+}
+
+.resource-type-chip.is-selected .resource-type-marker {
+  opacity: 1;
+  transform: scale(1);
+}
+
+@media (max-height: 820px) and (min-width: 981px) {
+  .resource-type-grid {
+    gap: 7px;
+  }
+
+  .resource-type-chip {
+    min-height: 44px;
+    padding: 6px 9px 9px;
+  }
+}
+
+@media (max-width: 620px) {
+  .resource-type-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

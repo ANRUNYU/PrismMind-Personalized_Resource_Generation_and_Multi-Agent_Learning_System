@@ -1,0 +1,195 @@
+:root {
+  --student-bg: #f8f5ec;
+  --student-bg-cool: #f3f7f2;
+  --student-panel-bg: rgba(255, 255, 255, 0.78);
+  --student-panel-soft: rgba(241, 246, 241, 0.68);
+  --student-text-main: #1d3940;
+  --student-text: #294e56;
+  --student-text-muted: rgba(41, 78, 86, 0.66);
+  --student-primary: #467987;
+  --student-primary-strong: #2f6471;
+  --student-primary-soft: rgba(70, 121, 135, 0.12);
+  --student-cyan: #27d8e8;
+  --student-blue: #2467d8;
+  --student-violet: #7457ff;
+  --student-border: rgba(47, 88, 96, 0.18);
+  --student-border-strong: rgba(47, 88, 96, 0.28);
+  --student-shadow: 0 14px 30px rgba(38, 62, 66, 0.075);
+  --student-shadow-strong: 0 18px 42px rgba(38, 62, 66, 0.09);
+  --student-radius: 8px;
+  --student-radius-lg: 14px;
+  --student-header-height: 72px;
+}
+
+.student-page-shell {
+  position: relative;
+  width: 100%;
+  min-width: 320px;
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  overflow-y: visible;
+  color: var(--student-text);
+  background:
+    radial-gradient(circle at 18% 36%, rgba(174, 207, 203, 0.18), transparent 28rem),
+    radial-gradient(circle at 86% 24%, rgba(200, 214, 231, 0.22), transparent 30rem),
+    linear-gradient(135deg, #f8f5ec 0%, #f2f6f0 52%, #fbf7ee 100%);
+  font-family:
+    Inter, HarmonyOS Sans SC, Microsoft YaHei, ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-synthesis: none;
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.student-page-shell::before,
+.student-page-shell::after {
+  position: absolute;
+  inset: var(--student-header-height) 0 0;
+  pointer-events: none;
+  content: "";
+}
+
+.student-page-shell::before {
+  opacity: 0.11;
+  background-image:
+    linear-gradient(rgba(37, 70, 76, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(37, 70, 76, 0.035) 1px, transparent 1px);
+  background-size: 38px 38px;
+  mask-image: radial-gradient(circle at 54% 48%, #000 0%, transparent 76%);
+}
+
+.student-page-shell::after {
+  opacity: 0.08;
+  background:
+    radial-gradient(rgba(32, 57, 61, 0.28) 0.6px, transparent 0.9px) 0 0 / 7px 7px,
+    linear-gradient(90deg, transparent 0 84%, rgba(47, 88, 96, 0.16) 84.1% 84.4%, transparent 84.5%);
+  mix-blend-mode: multiply;
+}
+
+.student-shell-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1740px;
+  min-height: calc(100vh - var(--student-header-height));
+  min-height: calc(100dvh - var(--student-header-height));
+  margin: var(--student-header-height) auto 0;
+  overflow-x: hidden;
+  overflow-y: visible;
+  padding: clamp(18px, 2.8vh, 32px) clamp(32px, 3.8vw, 58px) clamp(16px, 2.2vh, 26px);
+}
+
+.student-prism-field {
+  position: absolute;
+  inset: var(--student-header-height) 0 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.student-orbit {
+  position: absolute;
+  border: 1px solid rgba(47, 88, 96, 0.07);
+  border-radius: 50%;
+  background:
+    repeating-radial-gradient(circle, rgba(47, 88, 96, 0.07) 0 1px, transparent 1px 48px),
+    conic-gradient(from 12deg, transparent 0 20deg, rgba(39, 216, 232, 0.12) 20deg 21deg, transparent 21deg 72deg);
+}
+
+.student-orbit-a {
+  top: -8%;
+  right: 2%;
+  width: min(42vw, 620px);
+  aspect-ratio: 1;
+  opacity: 0.46;
+}
+
+.student-orbit-b {
+  right: -9%;
+  bottom: -16%;
+  width: min(48vw, 700px);
+  aspect-ratio: 1;
+  opacity: 0.32;
+}
+
+.student-circuit-line {
+  position: absolute;
+  height: 1px;
+  background:
+    linear-gradient(90deg, transparent, rgba(47, 88, 96, 0.2), transparent),
+    repeating-linear-gradient(90deg, rgba(47, 88, 96, 0.16) 0 2px, transparent 2px 18px);
+}
+
+.student-circuit-line::after {
+  position: absolute;
+  top: -3px;
+  right: 18%;
+  width: 7px;
+  height: 7px;
+  content: "";
+  background: rgba(47, 88, 96, 0.28);
+  border-radius: 50%;
+  box-shadow: 0 0 0 6px rgba(47, 88, 96, 0.045);
+}
+
+.student-circuit-line-a {
+  top: 11%;
+  right: 26%;
+  left: 33%;
+}
+
+.student-circuit-line-b {
+  top: 64%;
+  right: 8%;
+  left: 66%;
+  opacity: 0.55;
+}
+
+.student-dot-matrix {
+  position: absolute;
+  top: 12%;
+  right: 3%;
+  width: 120px;
+  height: 160px;
+  opacity: 0.22;
+  background: radial-gradient(circle, rgba(47, 88, 96, 0.26) 0 1.2px, transparent 1.6px) 0 0 / 12px 12px;
+}
+
+@media (max-width: 1100px) {
+  .student-page-shell {
+    min-height: 0;
+    overflow-x: hidden;
+    overflow-y: visible;
+  }
+
+  .student-shell-content {
+    min-height: calc(100vh - var(--student-header-height));
+    min-height: calc(100dvh - var(--student-header-height));
+    padding: 18px clamp(18px, 4vw, 42px) 22px;
+  }
+}
+
+@media (max-width: 620px) {
+  :root {
+    --student-header-height: 66px;
+  }
+
+  .student-shell-content {
+    padding: 20px 14px 28px;
+  }
+
+  .student-orbit-a,
+  .student-circuit-line,
+  .student-dot-matrix {
+    display: none;
+  }
+}
+
+@media (max-height: 760px) {
+  .student-shell-content {
+    padding-top: 16px;
+    padding-bottom: 14px;
+  }
+}

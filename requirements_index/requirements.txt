@@ -1,0 +1,17 @@
+flask
+flask_cors
+python-dotenv
+flask_sqlalchemy
+pymysql
+langchain
+langchain-community
+langchain-openai
+dashscope
+werkzeug
+markdown
+pypdf
+unstructured
+python-magic
+libmagic
+gunicorn
+dashvector

@@ -1,0 +1,194 @@
+name: intelligent-teaching
+
+services:
+  postgres:
+    image: postgres:16
+    container_name: intelligent-teaching-postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-edugenie_dev}
+      POSTGRES_USER: ${POSTGRES_USER:-edugenie_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-edugenie_password}
+      TZ: Asia/Shanghai
+    ports:
+      - "5432:5432"
+    volumes:
+      - intelligent_teaching_postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+  redis:
+    image: redis:7
+    container_name: intelligent-teaching-redis
+    command: ["redis-server", "--appendonly", "yes"]
+    ports:
+      - "6379:6379"
+    volumes:
+      - intelligent_teaching_redis:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: ./backend
+    image: intelligent-teaching-backend:dev
+    container_name: intelligent-teaching-backend
+    environment:
+      APP_NAME: ${APP_NAME:-棱镜智教-PrismMind}
+      APP_ENV: ${APP_ENV:-development}
+      APP_DEBUG: ${APP_DEBUG:-true}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+      SECRET_KEY: ${SECRET_KEY:-change-me-to-a-strong-local-secret}
+      JWT_ALGORITHM: ${JWT_ALGORITHM:-HS256}
+      ACCESS_TOKEN_EXPIRE_MINUTES: ${ACCESS_TOKEN_EXPIRE_MINUTES:-120}
+      REFRESH_TOKEN_EXPIRE_DAYS: ${REFRESH_TOKEN_EXPIRE_DAYS:-7}
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-edugenie_user}:${POSTGRES_PASSWORD:-edugenie_password}@postgres:5432/${POSTGRES_DB:-edugenie_dev}
+      REDIS_URL: redis://redis:6379/0
+      CELERY_BROKER_URL: redis://redis:6379/0
+      CELERY_RESULT_BACKEND: redis://redis:6379/0
+      USE_CELERY: "true"
+      BACKEND_CORS_ORIGINS: '["http://localhost:5173","http://127.0.0.1:5173"]'
+      STORAGE_ROOT: /app/storage/uploads
+      MAX_UPLOAD_SIZE_MB: ${MAX_UPLOAD_SIZE_MB:-20}
+      ALLOWED_UPLOAD_EXTENSIONS: .pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.csv,.txt,.md
+      MAX_BATCH_UPLOAD_FILES: ${MAX_BATCH_UPLOAD_FILES:-20}
+      MAX_BATCH_UPLOAD_SIZE_MB: ${MAX_BATCH_UPLOAD_SIZE_MB:-200}
+      # The image includes Tesseract and chi_sim; enable scanned-PDF OCR by default in Docker.
+      OCR_ENABLED: ${OCR_ENABLED:-true}
+      CHROMA_PERSIST_DIR: /app/storage/chroma
+      CHROMA_COLLECTION_NAME: ${CHROMA_COLLECTION_NAME:-edugenie_knowledge}
+      LLM_PROVIDER: ${LLM_PROVIDER:-mock}
+      LLM_MODEL: ${LLM_MODEL:-qwen-plus}
+      LLM_BASE_URL: ${LLM_BASE_URL:-}
+      LLM_TIMEOUT_SECONDS: ${LLM_TIMEOUT_SECONDS:-60}
+      LLM_MAX_RETRIES: ${LLM_MAX_RETRIES:-0}
+      LLM_TEMPERATURE: ${LLM_TEMPERATURE:-0.3}
+      DASHSCOPE_API_KEY: ${DASHSCOPE_API_KEY:-}
+      DASHSCOPE_BASE_URL: ${DASHSCOPE_BASE_URL:-https://dashscope.aliyuncs.com/compatible-mode/v1}
+      AGENT_MODEL_ORCHESTRATOR: ${AGENT_MODEL_ORCHESTRATOR:-qwen3.7-plus}
+      AGENT_MODEL_PROFILE: ${AGENT_MODEL_PROFILE:-qwen3.6-plus}
+      AGENT_MODEL_TUTOR: ${AGENT_MODEL_TUTOR:-qwen3-max}
+      AGENT_MODEL_RESOURCE: ${AGENT_MODEL_RESOURCE:-qwen3-max}
+      AGENT_MODEL_TEST: ${AGENT_MODEL_TEST:-deepseek-v3}
+      AGENT_MODEL_PATH: ${AGENT_MODEL_PATH:-qwen3.7-plus}
+      AGENT_MODEL_ASSESSMENT: ${AGENT_MODEL_ASSESSMENT:-qwen3-max}
+      AGENT_MODEL_VERIFIER: ${AGENT_MODEL_VERIFIER:-qwen3.6-plus}
+      EMBEDDING_MODEL: ${EMBEDDING_MODEL:-text-embedding-v4}
+      EMBEDDING_DIMENSION: ${EMBEDDING_DIMENSION:-1024}
+      RERANK_MODEL: ${RERANK_MODEL:-gte-rerank-v2}
+      LIVE_LLM_TESTS: ${LIVE_LLM_TESTS:-false}
+      LLM_REQUEST_TIMEOUT_SECONDS: ${LLM_REQUEST_TIMEOUT_SECONDS:-60}
+      LLM_CONNECT_TIMEOUT_SECONDS: ${LLM_CONNECT_TIMEOUT_SECONDS:-10}
+      LLM_MAX_CONCURRENCY: ${LLM_MAX_CONCURRENCY:-4}
+      LLM_DAILY_TOKEN_BUDGET: ${LLM_DAILY_TOKEN_BUDGET:-1000000}
+      LLM_PER_RUN_TOKEN_BUDGET: ${LLM_PER_RUN_TOKEN_BUDGET:-32000}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+    command: ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+    ports:
+      - "8000:8000"
+    volumes:
+      - intelligent_teaching_storage:/app/storage
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+
+  celery_worker:
+    build:
+      context: ./backend
+    image: intelligent-teaching-backend:dev
+    container_name: intelligent-teaching-celery-worker
+    environment:
+      APP_NAME: ${APP_NAME:-棱镜智教-PrismMind}
+      APP_ENV: ${APP_ENV:-development}
+      APP_DEBUG: ${APP_DEBUG:-true}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+      SECRET_KEY: ${SECRET_KEY:-change-me-to-a-strong-local-secret}
+      JWT_ALGORITHM: ${JWT_ALGORITHM:-HS256}
+      ACCESS_TOKEN_EXPIRE_MINUTES: ${ACCESS_TOKEN_EXPIRE_MINUTES:-120}
+      REFRESH_TOKEN_EXPIRE_DAYS: ${REFRESH_TOKEN_EXPIRE_DAYS:-7}
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-edugenie_user}:${POSTGRES_PASSWORD:-edugenie_password}@postgres:5432/${POSTGRES_DB:-edugenie_dev}
+      REDIS_URL: redis://redis:6379/0
+      CELERY_BROKER_URL: redis://redis:6379/0
+      CELERY_RESULT_BACKEND: redis://redis:6379/0
+      USE_CELERY: "true"
+      STORAGE_ROOT: /app/storage/uploads
+      MAX_UPLOAD_SIZE_MB: ${MAX_UPLOAD_SIZE_MB:-20}
+      ALLOWED_UPLOAD_EXTENSIONS: .pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.csv,.txt,.md
+      MAX_BATCH_UPLOAD_FILES: ${MAX_BATCH_UPLOAD_FILES:-20}
+      MAX_BATCH_UPLOAD_SIZE_MB: ${MAX_BATCH_UPLOAD_SIZE_MB:-200}
+      OCR_ENABLED: ${OCR_ENABLED:-true}
+      CHROMA_PERSIST_DIR: /app/storage/chroma
+      CHROMA_COLLECTION_NAME: ${CHROMA_COLLECTION_NAME:-edugenie_knowledge}
+      LLM_PROVIDER: ${LLM_PROVIDER:-mock}
+      LLM_MODEL: ${LLM_MODEL:-qwen-plus}
+      LLM_BASE_URL: ${LLM_BASE_URL:-}
+      LLM_TIMEOUT_SECONDS: ${LLM_TIMEOUT_SECONDS:-60}
+      LLM_MAX_RETRIES: ${LLM_MAX_RETRIES:-0}
+      LLM_TEMPERATURE: ${LLM_TEMPERATURE:-0.3}
+      DASHSCOPE_API_KEY: ${DASHSCOPE_API_KEY:-}
+      DASHSCOPE_BASE_URL: ${DASHSCOPE_BASE_URL:-https://dashscope.aliyuncs.com/compatible-mode/v1}
+      AGENT_MODEL_ORCHESTRATOR: ${AGENT_MODEL_ORCHESTRATOR:-qwen3.7-plus}
+      AGENT_MODEL_PROFILE: ${AGENT_MODEL_PROFILE:-qwen3.6-plus}
+      AGENT_MODEL_TUTOR: ${AGENT_MODEL_TUTOR:-qwen3-max}
+      AGENT_MODEL_RESOURCE: ${AGENT_MODEL_RESOURCE:-qwen3-max}
+      AGENT_MODEL_TEST: ${AGENT_MODEL_TEST:-deepseek-v3}
+      AGENT_MODEL_PATH: ${AGENT_MODEL_PATH:-qwen3.7-plus}
+      AGENT_MODEL_ASSESSMENT: ${AGENT_MODEL_ASSESSMENT:-qwen3-max}
+      AGENT_MODEL_VERIFIER: ${AGENT_MODEL_VERIFIER:-qwen3.6-plus}
+      EMBEDDING_MODEL: ${EMBEDDING_MODEL:-text-embedding-v4}
+      EMBEDDING_DIMENSION: ${EMBEDDING_DIMENSION:-1024}
+      RERANK_MODEL: ${RERANK_MODEL:-gte-rerank-v2}
+      LIVE_LLM_TESTS: ${LIVE_LLM_TESTS:-false}
+      LLM_REQUEST_TIMEOUT_SECONDS: ${LLM_REQUEST_TIMEOUT_SECONDS:-60}
+      LLM_CONNECT_TIMEOUT_SECONDS: ${LLM_CONNECT_TIMEOUT_SECONDS:-10}
+      LLM_MAX_CONCURRENCY: ${LLM_MAX_CONCURRENCY:-4}
+      LLM_DAILY_TOKEN_BUDGET: ${LLM_DAILY_TOKEN_BUDGET:-1000000}
+      LLM_PER_RUN_TOKEN_BUDGET: ${LLM_PER_RUN_TOKEN_BUDGET:-32000}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+    command: ["celery", "-A", "app.tasks.celery_app.celery_app", "worker", "--loglevel=info", "--pool=solo"]
+    volumes:
+      - intelligent_teaching_storage:/app/storage
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      backend:
+        condition: service_started
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+    image: intelligent-teaching-frontend:dev
+    container_name: intelligent-teaching-frontend
+    environment:
+      VITE_API_BASE_URL: http://127.0.0.1:8000/api/v1
+    command: ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
+    ports:
+      - "5173:5173"
+    depends_on:
+      backend:
+        condition: service_started
+    restart: unless-stopped
+
+volumes:
+  intelligent_teaching_postgres:
+    name: intelligent-teaching-postgres-data
+    external: true
+  intelligent_teaching_redis:
+    name: intelligent-teaching-redis-data
+    external: true
+  intelligent_teaching_storage:
+    name: intelligent-teaching-storage-data
+    external: true

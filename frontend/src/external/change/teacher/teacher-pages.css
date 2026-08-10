@@ -1,0 +1,657 @@
+.teacher-workbench-page {
+  --teacher-bg: #f5f7fb;
+  --teacher-panel: rgba(255, 255, 255, 0.9);
+  --teacher-border: rgba(34, 73, 115, 0.14);
+  --teacher-text: #143245;
+  --teacher-muted: #5b7187;
+  --teacher-primary: #2157d6;
+  --teacher-accent: #27b4c7;
+  --teacher-shadow: 0 18px 46px rgba(20, 50, 69, 0.1);
+  position: relative;
+  min-height: calc(100vh - 112px);
+  overflow: hidden;
+  color: var(--teacher-text);
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 78% 12%, rgba(39, 180, 199, 0.16), transparent 28rem),
+    radial-gradient(circle at 10% 14%, rgba(33, 87, 214, 0.12), transparent 22rem),
+    linear-gradient(135deg, #fbfdff 0%, var(--teacher-bg) 52%, #f7fbff 100%);
+}
+
+.teacher-prism-background {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(120deg, transparent 0 46%, rgba(255, 255, 255, 0.7) 46.2% 52%, transparent 52.2%),
+    linear-gradient(58deg, transparent 0 62%, rgba(33, 87, 214, 0.08) 62.2% 63%, transparent 63.2%),
+    radial-gradient(circle at 62% 22%, rgba(255, 255, 255, 0.72) 0 4%, transparent 4.5%);
+  opacity: 0.95;
+}
+
+.teacher-workbench-page .workbench-shell {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 18px;
+  width: min(1480px, calc(100% - 32px));
+  min-height: calc(100vh - 112px);
+  margin: 0 auto;
+  padding: 28px 0;
+}
+
+.teacher-workbench-page .workbench-hero {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.teacher-workbench-page .workbench-kicker,
+.teacher-workbench-page .workbench-subtitle {
+  display: block;
+  color: rgba(33, 87, 214, 0.78);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.teacher-workbench-page .workbench-hero h1 {
+  margin: 4px 0;
+  font-size: clamp(2rem, 3vw, 3.2rem);
+  line-height: 1.05;
+  letter-spacing: 0;
+}
+
+.teacher-workbench-page .workbench-hero p {
+  max-width: 76ch;
+  margin: 8px 0 0;
+  color: var(--teacher-muted);
+  font-size: 0.98rem;
+  line-height: 1.7;
+}
+
+.teacher-workbench-page .workbench-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.teacher-workbench-page .workbench-links a,
+.teacher-workbench-page .panel-action {
+  display: inline-flex;
+  min-height: 34px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 12px;
+  color: var(--teacher-primary);
+  font-size: 0.86rem;
+  font-weight: 700;
+  text-decoration: none;
+  border: 1px solid rgba(33, 87, 214, 0.18);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.teacher-workbench-page .workbench-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(360px, 0.92fr);
+  gap: 18px;
+  min-height: 0;
+}
+
+.teacher-workbench-page .workbench-stack {
+  display: grid;
+  grid-template-rows: auto auto minmax(280px, 1fr) auto;
+  gap: 18px;
+  min-height: 0;
+}
+
+.teacher-workbench-page .workbench-panel {
+  min-width: 0;
+  border: 1px solid var(--teacher-border);
+  border-radius: 16px;
+  background: var(--teacher-panel);
+  box-shadow: var(--teacher-shadow);
+  backdrop-filter: blur(16px) saturate(1.04);
+}
+
+.teacher-workbench-page .workbench-panel--form,
+.teacher-workbench-page .workbench-panel--preview {
+  padding: 18px;
+}
+
+.teacher-workbench-page .workbench-panel--result {
+  min-height: 300px;
+  overflow: hidden;
+}
+
+.teacher-workbench-page .panel-heading,
+.reference-panel__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(20, 50, 69, 0.1);
+}
+
+.teacher-workbench-page .panel-title-wrap {
+  display: flex;
+  gap: 12px;
+}
+
+.teacher-workbench-page .panel-icon {
+  display: grid;
+  flex: 0 0 auto;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  color: var(--teacher-primary);
+  border: 1px solid rgba(33, 87, 214, 0.16);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.78);
+}
+
+.teacher-workbench-page .panel-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.teacher-workbench-page h2,
+.teacher-workbench-page h3,
+.teacher-workbench-page h4 {
+  margin: 0;
+  letter-spacing: 0;
+}
+
+.teacher-workbench-page .panel-heading p,
+.reference-panel__header span {
+  display: block;
+  margin-top: 4px;
+  color: var(--teacher-muted);
+  font-size: 0.86rem;
+}
+
+.teacher-workbench-page .status-pill {
+  padding: 6px 10px;
+  color: #14695d;
+  font-size: 0.82rem;
+  font-weight: 800;
+  border: 1px solid rgba(39, 180, 199, 0.24);
+  border-radius: 999px;
+  background: rgba(39, 180, 199, 0.1);
+}
+
+.teacher-workbench-page .workbench-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.teacher-workbench-page .field-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.teacher-workbench-page .form-field {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.teacher-workbench-page .form-field--wide {
+  grid-column: 1 / -1;
+}
+
+.teacher-workbench-page .field-label {
+  color: #1d3e55;
+  font-size: 0.88rem;
+  font-weight: 780;
+}
+
+.teacher-workbench-page .field-control {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.teacher-workbench-page input,
+.teacher-workbench-page select,
+.teacher-workbench-page textarea {
+  width: 100%;
+  min-width: 0;
+  color: var(--teacher-text);
+  border: 1px solid rgba(34, 73, 115, 0.18);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.82);
+  outline: none;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.teacher-workbench-page input,
+.teacher-workbench-page select {
+  min-height: 40px;
+  padding: 0 12px;
+}
+
+.teacher-workbench-page textarea {
+  resize: vertical;
+  padding: 11px 12px;
+  line-height: 1.58;
+}
+
+.teacher-workbench-page input:focus,
+.teacher-workbench-page select:focus,
+.teacher-workbench-page textarea:focus {
+  border-color: rgba(33, 87, 214, 0.48);
+  box-shadow: 0 0 0 4px rgba(33, 87, 214, 0.08);
+}
+
+.teacher-workbench-page [aria-invalid='true'] {
+  border-color: rgba(214, 69, 69, 0.58);
+}
+
+.teacher-workbench-page .field-hint,
+.teacher-workbench-page .form-error {
+  color: var(--teacher-muted);
+  font-size: 0.78rem;
+}
+
+.teacher-workbench-page .form-error {
+  margin: 0;
+  color: #b42318;
+  font-weight: 700;
+}
+
+.teacher-workbench-page .chip-row,
+.teacher-workbench-page .knowledge-chip-list,
+.teacher-workbench-page .file-chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.teacher-workbench-page .type-chip,
+.teacher-workbench-page .knowledge-chip,
+.teacher-workbench-page .file-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 32px;
+  padding: 0 10px;
+  color: #24485d;
+  border: 1px solid rgba(34, 73, 115, 0.14);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.teacher-workbench-page .type-chip,
+.teacher-workbench-page .knowledge-chip {
+  cursor: pointer;
+}
+
+.teacher-workbench-page .type-chip.is-active,
+.teacher-workbench-page .knowledge-chip.is-active {
+  color: #0e4e94;
+  border-color: rgba(33, 87, 214, 0.36);
+  background: rgba(33, 87, 214, 0.1);
+}
+
+.teacher-workbench-page .knowledge-chip small {
+  color: var(--teacher-muted);
+}
+
+.teacher-workbench-page .reference-panel {
+  padding: 14px;
+  border: 1px solid rgba(34, 73, 115, 0.12);
+  border-radius: 14px;
+  background: rgba(245, 249, 255, 0.78);
+}
+
+.teacher-workbench-page .reference-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  gap: 14px;
+}
+
+.teacher-workbench-page .upload-card,
+.teacher-workbench-page .knowledge-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+  padding: 12px;
+  border: 1px dashed rgba(34, 73, 115, 0.18);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.58);
+}
+
+.teacher-workbench-page .file-chip button {
+  color: #b42318;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.teacher-workbench-page .switch-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #1d3e55;
+  font-weight: 760;
+}
+
+.teacher-workbench-page .action-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.teacher-workbench-page .primary-action,
+.teacher-workbench-page .secondary-action {
+  display: inline-flex;
+  min-height: 40px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 16px;
+  font-weight: 800;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.teacher-workbench-page .primary-action {
+  color: #fff;
+  border: 1px solid rgba(33, 87, 214, 0.62);
+  background: linear-gradient(135deg, #2157d6, #2399c6);
+  box-shadow: 0 14px 28px rgba(33, 87, 214, 0.18);
+}
+
+.teacher-workbench-page .secondary-action {
+  color: var(--teacher-primary);
+  border: 1px solid rgba(33, 87, 214, 0.2);
+  background: rgba(255, 255, 255, 0.75);
+}
+
+.teacher-workbench-page button:disabled {
+  cursor: not-allowed;
+  opacity: 0.58;
+}
+
+.teacher-workbench-page .inline-status {
+  color: var(--teacher-muted);
+  font-size: 0.86rem;
+  font-weight: 720;
+}
+
+.teacher-workbench-page .overview-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.teacher-workbench-page .overview-item,
+.teacher-workbench-page .task-progress > div {
+  padding: 12px;
+  border: 1px solid rgba(34, 73, 115, 0.12);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.teacher-workbench-page .overview-item span,
+.teacher-workbench-page .task-progress span {
+  display: block;
+  color: var(--teacher-muted);
+  font-size: 0.78rem;
+}
+
+.teacher-workbench-page .overview-item strong,
+.teacher-workbench-page .task-progress strong {
+  display: block;
+  margin-top: 4px;
+  color: var(--teacher-text);
+  font-size: 1.08rem;
+}
+
+.teacher-workbench-page .skill-list {
+  display: grid;
+  gap: 10px;
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.teacher-workbench-page .training-skill-item {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  gap: 10px;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid rgba(34, 73, 115, 0.12);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.66);
+}
+
+.teacher-workbench-page .training-skill-index {
+  display: grid;
+  width: 30px;
+  height: 30px;
+  place-items: center;
+  color: var(--teacher-primary);
+  font-size: 0.78rem;
+  font-weight: 900;
+  border-radius: 9px;
+  background: rgba(33, 87, 214, 0.1);
+}
+
+.teacher-workbench-page .training-skill-main {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+
+.teacher-workbench-page .training-skill-bar {
+  height: 6px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(34, 73, 115, 0.09);
+}
+
+.teacher-workbench-page .training-skill-bar span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--teacher-primary), var(--teacher-accent));
+}
+
+.teacher-workbench-page .preview-empty,
+.teacher-workbench-page .reference-empty {
+  display: grid;
+  gap: 6px;
+  padding: 18px;
+  color: var(--teacher-muted);
+  border: 1px dashed rgba(34, 73, 115, 0.16);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.teacher-workbench-page .generation-result {
+  display: grid;
+  gap: 14px;
+  min-height: 0;
+}
+
+.teacher-workbench-page .result-meta {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+}
+
+.teacher-workbench-page .result-meta span {
+  padding: 5px 9px;
+  color: var(--teacher-primary);
+  font-size: 0.78rem;
+  font-weight: 800;
+  border-radius: 999px;
+  background: rgba(33, 87, 214, 0.1);
+}
+
+.teacher-workbench-page .quality-panel {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid rgba(39, 180, 199, 0.2);
+  border-radius: 12px;
+  background: rgba(39, 180, 199, 0.08);
+}
+
+.teacher-workbench-page .quality-panel span {
+  display: block;
+  color: var(--teacher-muted);
+  font-size: 0.78rem;
+}
+
+.teacher-workbench-page .quality-panel strong {
+  font-size: 1.08rem;
+}
+
+.teacher-workbench-page .quality-panel p {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: #315b65;
+}
+
+.teacher-workbench-page .teacher-markdown {
+  max-height: 380px;
+  overflow: auto;
+  padding: 14px;
+  color: #213f54;
+  border: 1px solid rgba(34, 73, 115, 0.12);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.76);
+  line-height: 1.7;
+}
+
+.teacher-workbench-page .teacher-markdown h2,
+.teacher-workbench-page .teacher-markdown h3,
+.teacher-workbench-page .teacher-markdown h4 {
+  margin: 12px 0 6px;
+}
+
+.teacher-workbench-page .teacher-markdown p {
+  margin: 4px 0;
+  white-space: pre-wrap;
+}
+
+.teacher-workbench-page .markdown-list-item {
+  padding-left: 12px;
+}
+
+.teacher-workbench-page .reference-result-list {
+  display: grid;
+  gap: 12px;
+}
+
+.teacher-workbench-page .reference-result-list article {
+  margin-top: 8px;
+  padding: 10px;
+  border-radius: 10px;
+  background: rgba(245, 249, 255, 0.86);
+}
+
+.teacher-workbench-page .reference-result-list p,
+.teacher-workbench-page .reference-result-list ul {
+  margin: 6px 0 0;
+  color: var(--teacher-muted);
+}
+
+.teacher-workbench-page .history-list {
+  display: grid;
+  gap: 10px;
+}
+
+.teacher-workbench-page .history-list a {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 12px;
+  color: inherit;
+  text-decoration: none;
+  border: 1px solid rgba(34, 73, 115, 0.12);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.teacher-workbench-page .history-list span {
+  color: var(--teacher-primary);
+  font-size: 0.78rem;
+  font-weight: 820;
+}
+
+.teacher-workbench-page .history-list strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.teacher-workbench-page .history-list small,
+.teacher-workbench-page .result-meta small {
+  color: var(--teacher-muted);
+}
+
+.teacher-workbench-page .task-progress {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.teacher-workbench-page .task-progress p {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: #b42318;
+}
+
+@media (max-width: 1180px) {
+  .teacher-workbench-page .workbench-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .teacher-workbench-page .workbench-stack {
+    grid-template-rows: none;
+  }
+}
+
+@media (max-width: 760px) {
+  .teacher-workbench-page .workbench-shell {
+    width: min(100% - 18px, 1480px);
+    padding: 16px 0;
+  }
+
+  .teacher-workbench-page .workbench-hero,
+  .teacher-workbench-page .panel-heading,
+  .reference-panel__header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .teacher-workbench-page .field-grid,
+  .teacher-workbench-page .reference-grid,
+  .teacher-workbench-page .overview-grid,
+  .teacher-workbench-page .quality-panel,
+  .teacher-workbench-page .task-progress,
+  .teacher-workbench-page .result-meta,
+  .teacher-workbench-page .history-list a {
+    grid-template-columns: 1fr;
+  }
+}

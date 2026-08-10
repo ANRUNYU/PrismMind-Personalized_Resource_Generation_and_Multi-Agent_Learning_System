@@ -1,0 +1,17 @@
+[tool.black]
+line-length = 100
+target-version = ["py311"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B"]
+ignore = [
+    "E501",  # keep long user-facing strings/prompts untouched in this baseline
+    "I001",  # import sorting will be handled in a later formatting pass
+    "B008",  # FastAPI intentionally uses Depends/Query/File in endpoint defaults
+    "B905",  # legacy helper code still uses zip without strict
+    "F401",  # tolerate legacy placeholder imports until the cleanup phase
+]

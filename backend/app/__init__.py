@@ -1,0 +1,1 @@
+"""PrismMind FastAPI backend package."""

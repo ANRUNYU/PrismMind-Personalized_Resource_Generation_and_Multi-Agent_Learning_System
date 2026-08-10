@@ -1,0 +1,126 @@
+:root[data-theme='dark'] {
+  color-scheme: dark;
+}
+
+body.dark {
+  background: #111713;
+  color: #eef3ee;
+}
+
+body.dark {
+  --el-bg-color: #111713;
+  --el-bg-color-page: #111713;
+  --el-bg-color-overlay: #18221c;
+  --el-text-color-primary: #eef3ee;
+  --el-text-color-regular: #d7e3da;
+  --el-border-color: #314238;
+  --el-fill-color-blank: #18221c;
+}
+
+body.dark .main-layout,
+body.dark .hero,
+body.dark .not-found {
+  background: #111713;
+}
+
+body.dark .main-layout__aside,
+body.dark .main-layout__header,
+body.dark .auth-panel-shell,
+body.dark .admin-console-panel,
+body.dark .admin-users-surface,
+body.dark .page-header,
+body.dark .page-hero,
+body.dark .metric-card,
+body.dark .stat-card,
+body.dark .generation-result,
+body.dark .reference-list,
+body.dark .table-card,
+body.dark .dashboard-card,
+body.dark .resource-card,
+body.dark .path-step-card,
+body.dark .resource-detail,
+body.dark .learning-recommendations {
+  border-color: #314238;
+  background: #18221c;
+  color: #eef3ee;
+}
+
+body.dark .page-header,
+body.dark .page-hero {
+  background:
+    linear-gradient(112deg, rgb(24 34 28 / 96%), rgb(18 28 23 / 96%)),
+    linear-gradient(90deg, rgb(31 138 112 / 16%), rgb(201 131 36 / 10%));
+}
+
+body.dark .app-logo__mark,
+body.dark .workflow-step span {
+  background: #2aa786;
+}
+
+body.dark .header-title span,
+body.dark .page-header p,
+body.dark .page-hero p,
+body.dark .stat-card span,
+body.dark .stat-card p,
+body.dark .quick-action-card p,
+body.dark .compact-list span,
+body.dark .workflow-step p,
+body.dark .path-summary-card span,
+body.dark .profile-dashboard p,
+body.dark .reference-card p,
+body.dark .resource-card__meta,
+body.dark .retrieve-result-card p,
+body.dark .recommendation-card p,
+body.dark .path-step-card p,
+body.dark .path-step-card dt {
+  color: #aebcaf;
+}
+
+body.dark .quick-action-card,
+body.dark .empty-state,
+body.dark .reference-card,
+body.dark .retrieve-result-card,
+body.dark .workflow-step,
+body.dark .path-summary-card,
+body.dark .recommendation-card,
+body.dark .compact-list button,
+body.dark .session-item,
+body.dark .chat-message__bubble,
+body.dark .path-step-card,
+body.dark .student-profile-page pre,
+body.dark .artifact-side-card pre {
+  border-color: #314238;
+  background: #121b16;
+  color: #eef3ee;
+}
+
+body.dark .chat-message--user .chat-message__bubble {
+  background: #12372f;
+}
+
+body.dark .markdown-body {
+  border-color: #314238;
+  background: #111713;
+  color: #e8f0ea;
+}
+
+body.dark .markdown-body h1,
+body.dark .markdown-body h2,
+body.dark .markdown-body h3 {
+  color: #f3f8f4;
+}
+
+body.dark .markdown-body blockquote {
+  background: #18221c;
+}
+
+body.dark .markdown-body th,
+body.dark .markdown-body td {
+  border-color: #314238;
+}
+
+body.dark .icon-action {
+  border-color: #314238;
+  background: #18221c;
+  color: #e8f0ea;
+}

@@ -1,0 +1,62 @@
+.student-prism-scene {
+  position: absolute;
+  right: clamp(-96px, -4vw, -42px);
+  bottom: clamp(8px, 4vh, 48px);
+  z-index: 0;
+  width: min(50vw, 760px);
+  height: min(74vh, 780px);
+  max-width: 100vw;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0.72;
+  mix-blend-mode: normal;
+  mask-image:
+    radial-gradient(ellipse at 62% 52%, #000 0%, rgba(0, 0, 0, 0.86) 44%, transparent 82%),
+    linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.48) 24%, #000 100%);
+}
+
+.student-prism-scene::before {
+  position: absolute;
+  inset: 9% 8% 8% 18%;
+  z-index: -1;
+  content: "";
+  background:
+    radial-gradient(ellipse at 58% 48%, rgba(221, 235, 255, 0.38), transparent 48%),
+    radial-gradient(ellipse at 62% 70%, rgba(70, 121, 135, 0.13), transparent 54%);
+  filter: blur(18px);
+  pointer-events: none;
+}
+
+.student-prism-scene canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  pointer-events: none;
+  user-select: none;
+}
+
+.student-prism-scene-center {
+  opacity: 0.66;
+  right: clamp(-86px, -3.2vw, -34px);
+  bottom: clamp(18px, 5vh, 58px);
+  width: min(45vw, 690px);
+  height: min(70vh, 720px);
+  mask-image: radial-gradient(ellipse at 62% 52%, #000 0%, rgba(0, 0, 0, 0.82) 44%, transparent 80%);
+}
+
+.student-prism-scene-compact {
+  opacity: 0.58;
+  right: -42px;
+  bottom: 18px;
+  width: min(38vw, 540px);
+  height: min(58vh, 580px);
+  mask-image: radial-gradient(ellipse at 64% 52%, #000 0%, rgba(0, 0, 0, 0.76) 40%, transparent 76%);
+}
+
+@media (max-width: 900px) {
+  .student-prism-scene {
+    right: -140px;
+    width: 78vw;
+    opacity: 0.44;
+  }
+}

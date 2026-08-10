@@ -1,0 +1,131 @@
+name: PrismMind CI
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: ["**"]
+
+jobs:
+  backend-check:
+    name: Backend checks
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: prismmind_ci
+          POSTGRES_USER: prismmind
+          POSTGRES_PASSWORD: prismmind
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U prismmind -d prismmind_ci"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      APP_ENV: test
+      APP_DEBUG: "false"
+      SECRET_KEY: ci-only-change-me
+      DATABASE_URL: postgresql+psycopg://prismmind:prismmind@localhost:5432/prismmind_ci
+      REDIS_URL: redis://127.0.0.1:6379/0
+      CELERY_BROKER_URL: redis://127.0.0.1:6379/0
+      CELERY_RESULT_BACKEND: redis://127.0.0.1:6379/0
+      USE_CELERY: "false"
+      LLM_PROVIDER: mock
+      BACKEND_CORS_ORIGINS: '["http://localhost:5173","http://127.0.0.1:5173"]'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: |
+            backend/requirements.txt
+            backend/requirements-dev.txt
+
+      - name: Install backend dependencies
+        working-directory: backend
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install -r requirements-dev.txt
+
+      - name: Compile backend
+        working-directory: backend
+        run: python -m compileall app scripts
+
+      - name: Import FastAPI app
+        working-directory: backend
+        run: python -c "from app.main import app; print(app.title)"
+
+      - name: Run pytest
+        working-directory: backend
+        run: pytest
+
+      - name: Run ruff
+        working-directory: backend
+        run: ruff check app tests
+
+      - name: Check test formatting
+        working-directory: backend
+        run: black --check tests
+
+  frontend-check:
+    name: Frontend checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install frontend dependencies
+        working-directory: frontend
+        run: npm ci
+
+      - name: Type check
+        working-directory: frontend
+        run: npm run type-check
+
+      - name: Build frontend
+        working-directory: frontend
+        run: npm run build
+
+  compose-check:
+    name: Docker Compose config
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate compose config
+        run: |
+          cat > ci-compose.env <<'EOF'
+          POSTGRES_DB=edugenie_dev
+          POSTGRES_USER=edugenie_user
+          POSTGRES_PASSWORD=edugenie_password
+          APP_NAME=棱镜智教-PrismMind
+          APP_ENV=development
+          APP_DEBUG=true
+          LOG_LEVEL=INFO
+          SECRET_KEY=compose-config-only-secret
+          JWT_ALGORITHM=HS256
+          ACCESS_TOKEN_EXPIRE_MINUTES=120
+          REFRESH_TOKEN_EXPIRE_DAYS=7
+          MAX_UPLOAD_SIZE_MB=20
+          CHROMA_COLLECTION_NAME=edugenie_knowledge
+          LLM_PROVIDER=mock
+          DASHSCOPE_API_KEY=
+          OPENAI_API_KEY=
+          EOF
+          docker compose -p intelligent-teaching-main --env-file ci-compose.env config

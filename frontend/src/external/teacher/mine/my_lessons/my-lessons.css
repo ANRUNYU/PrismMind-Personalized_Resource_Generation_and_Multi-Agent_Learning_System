@@ -1,0 +1,1106 @@
+.mine-lessons-page {
+  --card-scale: 0.88;
+  --spacing-unit: 0.8;
+  --nav-height: 72px;
+  --ink: #1d3940;
+  --muted: rgba(45, 83, 91, 0.68);
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  color: var(--ink);
+  background:
+    linear-gradient(135deg, rgba(248, 246, 238, 0.98), rgba(237, 244, 239, 0.95) 48%, rgba(250, 246, 237, 0.98)),
+    repeating-linear-gradient(90deg, rgba(47, 88, 96, 0.026) 0 1px, transparent 1px 32px);
+  font-family: "Microsoft YaHei", "PingFang SC", "Hiragino Sans GB", "Segoe UI", sans-serif;
+  font-synthesis: none;
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
+}
+
+.mine-lessons-page *,
+.mine-lessons-page *::before,
+.mine-lessons-page *::after {
+  box-sizing: border-box;
+}
+
+.mine-lessons-page::before {
+  position: absolute;
+  inset: var(--nav-height) 0 0 0;
+  content: "";
+  pointer-events: none;
+  opacity: 0.45;
+  background:
+    repeating-radial-gradient(ellipse at 34% 62%, rgba(47, 88, 96, 0.08) 0 1px, transparent 1px 58px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.34), transparent 52%, rgba(118, 170, 177, 0.08));
+  mask-image: linear-gradient(180deg, transparent 0, #000 18%, #000 88%, transparent);
+}
+
+.mine-lessons-page button,
+.mine-lessons-page input {
+  font: inherit;
+}
+
+.mine-lessons-page button {
+  cursor: pointer;
+}
+
+.mine-lessons-page .top-nav {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 80;
+  display: grid;
+  grid-template-columns: minmax(218px, 340px) minmax(150px, 1fr) minmax(124px, 220px);
+  align-items: center;
+  gap: clamp(18px, 3vw, 42px);
+  height: var(--nav-height);
+  padding: 0 clamp(22px, 4vw, 52px);
+  color: #2f5860;
+  background:
+    linear-gradient(180deg, rgba(248, 246, 239, 0.94), rgba(244, 246, 239, 0.78)),
+    linear-gradient(105deg, rgba(95, 251, 255, 0.055), transparent 34%, rgba(124, 77, 255, 0.032) 78%, transparent),
+    repeating-linear-gradient(90deg, transparent 0 28px, rgba(47, 88, 96, 0.014) 28px 29px);
+  border-bottom: 1px solid rgba(47, 88, 96, 0.18);
+  box-shadow:
+    0 10px 28px rgba(38, 62, 66, 0.045),
+    inset 0 1px 0 rgba(255, 255, 255, 0.58);
+  backdrop-filter: blur(14px) saturate(126%);
+}
+
+.mine-lessons-page .top-nav::after {
+  position: absolute;
+  right: clamp(140px, 24vw, 420px);
+  bottom: -1px;
+  left: clamp(260px, 25vw, 430px);
+  height: 1px;
+  content: "";
+  background:
+    linear-gradient(90deg, transparent, rgba(47, 88, 96, 0.28), transparent),
+    repeating-linear-gradient(90deg, rgba(47, 88, 96, 0.16) 0 2px, transparent 2px 18px);
+}
+
+.mine-lessons-page .top-nav-left,
+.mine-lessons-page .top-nav-right {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: clamp(20px, 3vw, 34px);
+  min-width: 0;
+  white-space: nowrap;
+}
+
+.mine-lessons-page .top-nav-left {
+  justify-content: center;
+}
+
+.mine-lessons-page .top-nav-right {
+  justify-content: flex-end;
+}
+
+.mine-lessons-page .top-nav-mark {
+  position: absolute;
+  left: 50%;
+  display: none;
+  align-items: center;
+  gap: 7px;
+  transform: translateX(-50%);
+}
+
+.mine-lessons-page .top-nav-mark span {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(47, 88, 96, 0.2);
+}
+
+.mine-lessons-page .top-nav-mark span:nth-child(2) {
+  width: 7px;
+  height: 7px;
+  background: rgba(47, 88, 96, 0.38);
+  box-shadow: 0 0 0 6px rgba(47, 88, 96, 0.045);
+}
+
+.mine-lessons-page .top-brand {
+  position: relative;
+  display: inline-flex;
+  width: max-content;
+  min-width: 214px;
+  max-width: 100%;
+  align-items: center;
+  gap: 12px;
+  padding: 0;
+  color: #20393d;
+  background: transparent;
+  border: 0;
+  outline: 0;
+}
+
+.mine-lessons-page .teacher-brand-icon {
+  position: relative;
+  display: block;
+  flex: 0 0 auto;
+  width: 52px;
+  height: 52px;
+  border: 0;
+  border-radius: 17px;
+  outline: 0;
+  background:
+    radial-gradient(circle at 26% 18%, rgba(255, 255, 255, 0.72), transparent 22%),
+    radial-gradient(circle at 72% 74%, rgba(80, 250, 255, 0.2), transparent 36%),
+    linear-gradient(145deg, #16213c 0%, #2244d8 44%, #7d43ff 72%, #16d4c8 100%);
+  box-shadow:
+    0 14px 32px rgba(43, 78, 142, 0.2),
+    0 0 24px rgba(45, 222, 239, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.48);
+  overflow: visible;
+  isolation: isolate;
+}
+
+.mine-lessons-page .teacher-brand-icon::before,
+.mine-lessons-page .teacher-brand-icon::after {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  content: "";
+}
+
+.mine-lessons-page .teacher-brand-icon::before {
+  z-index: 3;
+  box-shadow:
+    inset 0 0 0 1px rgba(190, 248, 255, 0.48),
+    inset 0 0 0 2px rgba(145, 108, 255, 0.18);
+}
+
+.mine-lessons-page .teacher-brand-icon::after {
+  z-index: 4;
+  background: linear-gradient(112deg, transparent 0 28%, rgba(255, 255, 255, 0.7) 42%, rgba(91, 248, 255, 0.32) 48%, transparent 62%);
+  mix-blend-mode: screen;
+  opacity: 0.42;
+  transform: translateX(-42%) skewX(-18deg);
+}
+
+.mine-lessons-page .prism-logo-glow {
+  position: absolute;
+  inset: 7px;
+  z-index: 0;
+  border-radius: 14px;
+  background:
+    radial-gradient(circle at 30% 34%, rgba(92, 251, 255, 0.42), transparent 34%),
+    radial-gradient(circle at 68% 62%, rgba(255, 79, 216, 0.3), transparent 38%);
+  filter: blur(10px);
+  opacity: 0.82;
+}
+
+.mine-lessons-page .prism-logo-core {
+  position: absolute;
+  inset: 8px;
+  z-index: 2;
+}
+
+.mine-lessons-page .prism-logo-facet,
+.mine-lessons-page .prism-logo-ray,
+.mine-lessons-page .prism-logo-nucleus {
+  position: absolute;
+  display: block;
+  pointer-events: none;
+}
+
+.mine-lessons-page .prism-logo-facet {
+  border: 1px solid rgba(215, 252, 255, 0.34);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.38),
+    0 0 12px rgba(70, 245, 255, 0.14);
+  backdrop-filter: blur(3px);
+}
+
+.mine-lessons-page .prism-logo-facet-a {
+  top: 3px;
+  left: 6px;
+  width: 23px;
+  height: 27px;
+  clip-path: polygon(44% 0, 100% 32%, 70% 100%, 0 72%, 6% 22%);
+  background: linear-gradient(138deg, rgba(255, 255, 255, 0.62), rgba(86, 239, 255, 0.64) 42%, rgba(23, 74, 255, 0.28));
+  transform: rotate(-15deg);
+}
+
+.mine-lessons-page .prism-logo-facet-b {
+  top: 9px;
+  right: 4px;
+  width: 21px;
+  height: 24px;
+  clip-path: polygon(18% 10%, 100% 0, 82% 74%, 36% 100%, 0 50%);
+  background: linear-gradient(148deg, rgba(153, 116, 255, 0.84), rgba(255, 255, 255, 0.36) 52%, rgba(59, 251, 255, 0.28));
+  transform: rotate(17deg);
+}
+
+.mine-lessons-page .prism-logo-facet-c {
+  bottom: 5px;
+  left: 12px;
+  width: 23px;
+  height: 20px;
+  clip-path: polygon(0 14%, 58% 0, 100% 48%, 74% 100%, 18% 82%);
+  background: linear-gradient(145deg, rgba(255, 79, 216, 0.42), rgba(92, 251, 255, 0.68), rgba(255, 255, 255, 0.42));
+  transform: rotate(9deg);
+}
+
+.mine-lessons-page .prism-logo-facet-d {
+  top: 15px;
+  left: 17px;
+  width: 17px;
+  height: 18px;
+  clip-path: polygon(50% 0, 100% 42%, 76% 100%, 16% 88%, 0 28%);
+  background: radial-gradient(circle at 32% 24%, rgba(255, 255, 255, 0.9), rgba(109, 123, 255, 0.44) 44%, rgba(18, 28, 62, 0.12));
+}
+
+.mine-lessons-page .prism-logo-facet-e {
+  right: -1px;
+  bottom: 8px;
+  width: 14px;
+  height: 18px;
+  clip-path: polygon(34% 0, 100% 28%, 72% 100%, 0 72%);
+  background: linear-gradient(140deg, rgba(255, 255, 255, 0.42), rgba(119, 75, 255, 0.58), rgba(32, 246, 255, 0.2));
+  transform: rotate(-7deg);
+}
+
+.mine-lessons-page .prism-logo-ray {
+  height: 1.5px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, rgba(228, 255, 255, 0.9), rgba(90, 242, 255, 0.62), transparent);
+  opacity: 0.74;
+}
+
+.mine-lessons-page .prism-logo-ray-a {
+  top: 16px;
+  right: -4px;
+  width: 24px;
+  transform: rotate(-17deg);
+}
+
+.mine-lessons-page .prism-logo-ray-b {
+  bottom: 13px;
+  left: -4px;
+  width: 25px;
+  transform: rotate(17deg);
+}
+
+.mine-lessons-page .prism-logo-nucleus {
+  top: 18px;
+  left: 20px;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow:
+    0 0 10px rgba(255, 255, 255, 0.72),
+    0 0 18px rgba(81, 247, 255, 0.42);
+}
+
+.mine-lessons-page .top-brand-name {
+  position: relative;
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+.mine-lessons-page .top-brand-name::after {
+  position: absolute;
+  right: 0;
+  bottom: -7px;
+  left: 0;
+  height: 1px;
+  content: "";
+  background: linear-gradient(90deg, rgba(42, 214, 232, 0.46), rgba(182, 156, 255, 0.34), transparent);
+  opacity: 0;
+  transform: scaleX(0.45);
+  transform-origin: left center;
+  transition:
+    opacity 220ms ease,
+    transform 360ms ease;
+}
+
+.mine-lessons-page .top-brand strong,
+.mine-lessons-page .top-brand em {
+  display: block;
+  letter-spacing: 0;
+  text-align: left;
+  transition:
+    color 180ms ease,
+    opacity 180ms ease;
+}
+
+.mine-lessons-page .top-brand strong {
+  color: rgba(28, 53, 59, 0.96);
+  font-size: 1.49rem;
+  font-weight: 900;
+  line-height: 1.1;
+}
+
+.mine-lessons-page .top-brand em {
+  color: rgba(47, 88, 96, 0.62);
+  font-size: 1.15rem;
+  font-style: normal;
+  font-weight: 650;
+}
+
+.mine-lessons-page .top-brand:hover strong {
+  color: rgba(16, 32, 45, 0.94);
+}
+
+.mine-lessons-page .top-brand:hover em {
+  color: rgba(47, 88, 96, 0.68);
+}
+
+.mine-lessons-page .top-brand:hover .top-brand-name::after {
+  opacity: 0.85;
+  transform: scaleX(1);
+}
+
+.mine-lessons-page .top-nav-button {
+  position: relative;
+  min-width: 0;
+  padding: 8px 0;
+  color: rgba(41, 78, 86, 0.78);
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  cursor: pointer;
+  font-size: 1.31rem;
+  font-weight: 760;
+  line-height: 1;
+  transition:
+    color 160ms ease,
+    opacity 160ms ease,
+    transform 160ms ease;
+}
+
+.mine-lessons-page .top-nav-button::before {
+  position: absolute;
+  bottom: -7px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  content: "";
+  background: currentColor;
+  opacity: 0;
+  transform: scaleX(0.45);
+  transform-origin: left center;
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease;
+}
+
+.mine-lessons-page .top-nav-button::after {
+  position: absolute;
+  top: 50%;
+  left: -13px;
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: currentColor;
+  content: "";
+  opacity: 0;
+  transform: translateY(-50%);
+  transition: opacity 160ms ease;
+}
+
+.mine-lessons-page .top-nav-button:hover,
+.mine-lessons-page .top-nav-button.is-active {
+  color: rgba(27, 52, 58, 0.98);
+}
+
+.mine-lessons-page .top-nav-button:hover {
+  transform: translateY(-1px);
+}
+
+.mine-lessons-page .top-nav-button:hover::before,
+.mine-lessons-page .top-nav-button.is-active::before {
+  opacity: 0.72;
+  transform: scaleX(1);
+}
+
+.mine-lessons-page .top-nav-button.is-active::after {
+  opacity: 0.5;
+}
+
+.mine-lessons-page .top-user-popover {
+  position: absolute;
+  top: 56px;
+  right: 44px;
+  z-index: 81;
+  display: grid;
+  width: 210px;
+  gap: 5px;
+  padding: 12px 13px;
+  color: rgba(28, 53, 59, 0.92);
+  background: rgba(250, 248, 241, 0.96);
+  border: 1px solid rgba(47, 88, 96, 0.22);
+  box-shadow: 0 16px 32px rgba(38, 62, 66, 0.08);
+}
+
+.mine-lessons-page .top-user-popover span {
+  font-size: 1.05rem;
+  font-weight: 760;
+}
+
+.mine-lessons-page .top-user-popover small {
+  color: rgba(47, 88, 96, 0.44);
+  font-size: 0.92rem;
+}
+
+.mine-lessons-page .page-grid {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  width: min(100%, 1640px);
+  height: calc(100dvh - var(--nav-height));
+  grid-template-columns: minmax(680px, 1fr) minmax(320px, 460px);
+  gap: clamp(22px, 3vw, 44px);
+  padding: clamp(28px, 4.4vh, 58px) clamp(28px, 4.8vw, 88px) clamp(28px, 4vh, 52px);
+  margin: var(--nav-height) auto 0;
+  overflow: hidden;
+}
+
+.mine-lessons-page .workspace-column,
+.mine-lessons-page .side-column {
+  min-width: 0;
+}
+
+.mine-lessons-page .workspace-column {
+  display: grid;
+  min-height: 0;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: calc(20px * var(--spacing-unit));
+}
+
+.mine-lessons-page .side-column {
+  display: grid;
+  align-content: start;
+  gap: calc(18px * var(--spacing-unit));
+}
+
+.mine-lessons-page .page-hero {
+  position: relative;
+  z-index: 30;
+  display: grid;
+  gap: calc(22px * var(--spacing-unit));
+}
+
+.teacher-courses-page .page-hero {
+  min-height: 172px;
+  padding: 28px;
+  align-items: flex-end;
+  justify-content: space-between;
+  background:
+    linear-gradient(112deg, rgba(255, 255, 255, 0.96), rgba(239, 246, 255, 0.94)),
+    linear-gradient(90deg, rgba(37, 99, 235, 0.13), rgba(124, 58, 237, 0.1), rgba(6, 182, 212, 0.09));
+  border: 1px solid #dbe4f0;
+  border-radius: 8px;
+  box-shadow: 0 12px 24px rgba(20, 32, 51, 0.06);
+}
+
+.mine-lessons-page .page-hero h1 {
+  display: inline;
+  margin: 0;
+  font-size: clamp(3rem, 4.8vw, 5.2rem);
+  font-weight: 950;
+  line-height: 0.92;
+  letter-spacing: 0;
+}
+
+.mine-lessons-page .page-hero span {
+  display: inline-block;
+  margin-left: clamp(16px, 2.6vw, 34px);
+  color: rgba(47, 88, 96, 0.13);
+  font-family: "Segoe Print", "Comic Sans MS", cursive;
+  font-size: clamp(1.58rem, 2.35vw, 2.95rem);
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+.mine-lessons-page .page-hero p {
+  margin: 6px 0 0;
+  color: rgba(45, 83, 91, 0.82);
+  font-size: clamp(0.98rem, 1.08vw, 1.18rem);
+  font-weight: 800;
+}
+
+.mine-lessons-page .toolbar-row {
+  position: relative;
+  z-index: 32;
+  display: grid;
+  width: min(100%, 980px);
+  grid-template-columns: minmax(220px, 1fr) minmax(180px, 220px) minmax(112px, auto) minmax(86px, auto);
+  gap: calc(16px * var(--spacing-unit));
+}
+
+@media (max-width: 1320px) {
+  .teacher-courses-page .toolbar-row {
+    grid-template-columns: minmax(190px, 1fr) minmax(150px, 190px) minmax(104px, auto) minmax(80px, auto);
+    gap: 10px;
+  }
+}
+
+.mine-lessons-page .search-box,
+.mine-lessons-page .join-code-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 56px;
+  padding: 0 18px;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(47, 88, 96, 0.22);
+  box-shadow:
+    0 12px 28px rgba(38, 62, 66, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(10px);
+}
+
+.mine-lessons-page .search-box span,
+.mine-lessons-page .join-code-box span {
+  margin: 0;
+  color: rgba(47, 88, 96, 0.72);
+  font-size: 0.92rem;
+  font-weight: 850;
+  white-space: nowrap;
+}
+
+.mine-lessons-page .search-box span {
+  font-size: 1.72rem;
+}
+
+.mine-lessons-page .search-box input,
+.mine-lessons-page .join-code-box input {
+  width: 100%;
+  min-width: 0;
+  color: var(--ink);
+  background: transparent;
+  border: 0;
+  outline: 0;
+  font-size: 1.02rem;
+  font-weight: 720;
+}
+
+.mine-lessons-page .search-box input::placeholder,
+.mine-lessons-page .join-code-box input::placeholder {
+  color: rgba(47, 88, 96, 0.48);
+}
+
+.mine-lessons-page .add-button,
+.mine-lessons-page .primary-action {
+  min-height: 49px;
+  color: rgba(255, 255, 255, 0.94);
+  background:
+    linear-gradient(180deg, rgba(104, 145, 153, 0.94), rgba(61, 111, 121, 0.96)),
+    linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.18), transparent);
+  border: 0;
+  box-shadow:
+    0 16px 30px rgba(46, 88, 96, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28);
+  font-size: 0.98rem;
+  font-weight: 850;
+}
+
+.mine-lessons-page .add-button:disabled,
+.mine-lessons-page .primary-action:disabled,
+.mine-lessons-page .secondary-action:disabled {
+  cursor: not-allowed;
+  opacity: 0.58;
+}
+
+.mine-lessons-page .add-button--subtle {
+  color: rgba(47, 88, 96, 0.82);
+  background: rgba(255, 255, 255, 0.54);
+  border: 1px solid rgba(47, 88, 96, 0.2);
+  box-shadow:
+    0 12px 24px rgba(38, 62, 66, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+.mine-lessons-page .scene-layer {
+  position: relative;
+  min-height: 0;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.mine-lessons-page .lesson-scene-layer {
+  min-height: 0;
+  perspective: 1200px;
+  perspective-origin: 45% 48%;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0.08)),
+    repeating-linear-gradient(0deg, transparent 0 28px, rgba(47, 88, 96, 0.018) 28px 29px);
+}
+
+.mine-lessons-page .scene-orbit-grid {
+  position: absolute;
+  top: 48%;
+  left: 45%;
+  width: min(76vw, 980px);
+  max-width: 100%;
+  aspect-ratio: 1;
+  pointer-events: none;
+  border-radius: 50%;
+  opacity: 0.42;
+  background:
+    repeating-radial-gradient(circle, rgba(47, 88, 96, 0.08) 0 1px, transparent 1px 72px),
+    conic-gradient(from 20deg, transparent 0 24deg, rgba(47, 88, 96, 0.08) 24deg 25deg, transparent 25deg 70deg);
+  transform: translate(-50%, -48%) rotateX(62deg);
+}
+
+.mine-lessons-page .scene-vanish-line {
+  position: absolute;
+  right: 8%;
+  bottom: 16%;
+  left: 8%;
+  height: 1px;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(47, 88, 96, 0.22), transparent);
+}
+
+.mine-lessons-page .lesson-card-system {
+  position: absolute;
+  inset: 0;
+  transform: translateY(18px);
+  transform-style: preserve-3d;
+}
+
+.mine-lessons-page .lesson-prism-card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: clamp(210px, 24vw, 380px);
+  height: clamp(220px, 25vw, 310px);
+  border: 0;
+  outline: 0;
+  transform-style: preserve-3d;
+  will-change: transform, opacity, filter;
+}
+
+.mine-lessons-page .lesson-prism-card:focus-visible .prism-card-face {
+  outline: 2px solid rgba(41, 214, 232, 0.46);
+  outline-offset: 5px;
+}
+
+.mine-lessons-page .prism-card-face,
+.mine-lessons-page .prism-card-side {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  clip-path: polygon(8% 5%, 92% 0, 100% 82%, 88% 100%, 0 92%, 3% 18%);
+  backface-visibility: hidden;
+}
+
+.mine-lessons-page .prism-card-face {
+  display: grid;
+  align-content: center;
+  gap: 12px;
+  padding: clamp(21px, 2.75vw, 40px);
+  color: rgba(255, 255, 255, 0.92);
+  background:
+    linear-gradient(132deg, rgba(255, 255, 255, 0.32), transparent 16%, rgba(255, 255, 255, 0.15) 33%, transparent 46%),
+    linear-gradient(148deg, rgba(29, 51, 58, 0.66), rgba(99, 128, 132, 0.72)),
+    radial-gradient(circle at 86% 18%, var(--accent), transparent 36%);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.28),
+    inset 16px 0 24px rgba(255, 255, 255, 0.08),
+    inset -20px -22px 40px rgba(15, 35, 41, 0.18);
+  overflow: hidden;
+}
+
+.mine-lessons-page .prism-card-face::before,
+.mine-lessons-page .prism-card-face::after {
+  position: absolute;
+  content: "";
+  pointer-events: none;
+}
+
+.mine-lessons-page .prism-card-face::before {
+  inset: 12px;
+  border: 1px solid rgba(228, 255, 255, 0.22);
+  clip-path: polygon(8% 5%, 92% 0, 100% 82%, 88% 100%, 0 92%, 3% 18%);
+}
+
+.mine-lessons-page .prism-card-face::after {
+  top: -25%;
+  left: 18%;
+  width: 28%;
+  height: 150%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.42), transparent);
+  transform: rotate(36deg);
+}
+
+.mine-lessons-page .prism-card-side {
+  opacity: 0.82;
+  background:
+    linear-gradient(160deg, rgba(255, 255, 255, 0.22), rgba(48, 90, 98, 0.32)),
+    radial-gradient(circle at 50% 30%, var(--accent), transparent 58%);
+}
+
+.mine-lessons-page .prism-card-side-left {
+  transform: translateZ(-28px) rotateY(-7deg) translateX(-16px);
+}
+
+.mine-lessons-page .prism-card-side-right {
+  transform: translateZ(-36px) rotateY(9deg) translateX(18px);
+}
+
+.mine-lessons-page .lesson-status {
+  width: max-content;
+  padding: 5px 10px;
+  color: rgba(255, 255, 255, 0.86);
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.mine-lessons-page .lesson-prism-card h3 {
+  position: relative;
+  margin: 0;
+  font-size: clamp(1.34rem, 2.25vw, 2.32rem);
+  line-height: 1.08;
+  letter-spacing: 0;
+}
+
+.mine-lessons-page .lesson-prism-card p,
+.mine-lessons-page .lesson-prism-card small {
+  position: relative;
+  margin: 0;
+  font-weight: 820;
+}
+
+.mine-lessons-page .lesson-progress-track {
+  position: relative;
+  width: 100%;
+  height: 8px;
+  overflow: hidden;
+  background: rgba(42, 65, 68, 0.16);
+}
+
+.mine-lessons-page .lesson-progress-track span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(124, 230, 230, 0.76), rgba(255, 255, 255, 0.88));
+  transform-origin: left center;
+}
+
+.mine-lessons-page .scene-scroll-hint {
+  position: absolute;
+  right: 0;
+  bottom: 28px;
+  left: 0;
+  z-index: 8;
+  color: rgba(45, 83, 91, 0.68);
+  font-size: 0.92rem;
+  font-weight: 760;
+  text-align: center;
+  pointer-events: none;
+}
+
+.mine-lessons-page .stats-panel,
+.mine-lessons-page .detail-panel,
+.mine-lessons-page .lesson-empty-state,
+.mine-lessons-page .lesson-action-notice {
+  width: 100%;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.78), rgba(238, 244, 240, 0.56)),
+    repeating-linear-gradient(0deg, transparent 0 18px, rgba(47, 88, 96, 0.018) 18px 19px);
+  border: 1px solid rgba(47, 88, 96, 0.22);
+  box-shadow:
+    0 18px 36px rgba(38, 62, 66, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(10px);
+}
+
+.mine-lessons-page .lesson-empty-state {
+  position: relative;
+  z-index: 4;
+  display: grid;
+  min-height: 280px;
+  place-items: center;
+  padding: 28px;
+  color: rgba(45, 83, 91, 0.72);
+  font-weight: 850;
+  text-align: center;
+}
+
+.mine-lessons-page .lesson-action-notice {
+  width: min(100%, 860px);
+  padding: 12px 14px;
+  color: rgba(45, 83, 91, 0.78);
+  font-weight: 780;
+}
+
+.mine-lessons-page .lesson-action-notice.is-success {
+  border-color: rgba(69, 157, 112, 0.34);
+  color: #2e7654;
+}
+
+.mine-lessons-page .lesson-action-notice.is-error {
+  border-color: rgba(207, 83, 83, 0.34);
+  color: #9a3e3e;
+}
+
+.mine-lessons-page .stats-panel,
+.mine-lessons-page .detail-panel {
+  max-width: 460px;
+  justify-self: end;
+}
+
+.mine-lessons-page .stats-panel {
+  display: grid;
+  min-height: 104px;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: center;
+}
+
+.mine-lessons-page .stats-panel span {
+  display: grid;
+  gap: 4px;
+  color: rgba(45, 83, 91, 0.68);
+  text-align: center;
+  font-weight: 800;
+}
+
+.mine-lessons-page .stats-panel span + span {
+  border-left: 1px solid rgba(47, 88, 96, 0.17);
+}
+
+.mine-lessons-page .stats-panel strong {
+  color: rgba(25, 50, 56, 0.98);
+  font-size: clamp(1.42rem, 2.1vw, 2.32rem);
+  line-height: 1;
+}
+
+.mine-lessons-page .detail-panel {
+  position: sticky;
+  top: calc(var(--nav-height) + 28px);
+  display: grid;
+  max-height: calc(100dvh - var(--nav-height) - 56px);
+  gap: 16px;
+  padding: clamp(23px, 2.65vw, 34px);
+  overflow: auto;
+  font-size: 0.94rem;
+}
+
+.mine-lessons-page .detail-kicker {
+  width: max-content;
+  padding: 7px 11px;
+  color: rgba(47, 88, 96, 0.74);
+  background: rgba(47, 88, 96, 0.08);
+  font-size: 0.84rem;
+  font-weight: 850;
+}
+
+.mine-lessons-page .detail-panel h2 {
+  margin: 0;
+  color: rgba(25, 50, 56, 0.96);
+  font-size: clamp(1.42rem, 1.72vw, 2.04rem);
+  line-height: 1.14;
+  overflow-wrap: anywhere;
+}
+
+.mine-lessons-page .detail-panel p {
+  margin: 0;
+  color: rgba(45, 83, 91, 0.74);
+  font-size: 0.96rem;
+  font-weight: 700;
+  line-height: 1.68;
+}
+
+.mine-lessons-page .teacher-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.mine-lessons-page .teacher-avatar {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  color: white;
+  background: linear-gradient(145deg, #1b343b, #84b8bd);
+  border-radius: 50%;
+  font-weight: 900;
+}
+
+.mine-lessons-page .teacher-row strong,
+.mine-lessons-page .teacher-row small {
+  display: block;
+}
+
+.mine-lessons-page .teacher-row small {
+  color: rgba(47, 88, 96, 0.52);
+  font-weight: 720;
+}
+
+.mine-lessons-page .detail-progress {
+  display: grid;
+  gap: 8px;
+}
+
+.mine-lessons-page .detail-progress > div:first-child {
+  display: flex;
+  justify-content: space-between;
+  color: rgba(45, 83, 91, 0.72);
+  font-weight: 850;
+}
+
+.mine-lessons-page .detail-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 1px solid rgba(47, 88, 96, 0.16);
+}
+
+.mine-lessons-page .detail-metrics span {
+  display: grid;
+  gap: 4px;
+  padding: 13px 9px;
+  color: rgba(47, 88, 96, 0.6);
+  text-align: center;
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.mine-lessons-page .detail-metrics span + span {
+  border-left: 1px solid rgba(47, 88, 96, 0.14);
+}
+
+.mine-lessons-page .detail-metrics strong {
+  color: var(--ink);
+  font-size: 1.08rem;
+}
+
+.mine-lessons-page .tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.mine-lessons-page .tag-row span {
+  padding: 7px 10px;
+  color: rgba(47, 88, 96, 0.72);
+  background: rgba(47, 88, 96, 0.08);
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.mine-lessons-page .secondary-action {
+  min-height: 46px;
+  color: rgba(47, 88, 96, 0.82);
+  background: rgba(255, 255, 255, 0.42);
+  border: 1px solid rgba(47, 88, 96, 0.22);
+  font-size: 0.92rem;
+  font-weight: 850;
+}
+
+@media (max-width: 1180px) {
+  .mine-lessons-page .page-grid {
+    grid-template-columns: minmax(0, 1fr);
+    overflow: hidden;
+  }
+
+  .mine-lessons-page .workspace-column {
+    min-height: 0;
+  }
+
+  .mine-lessons-page .side-column {
+    display: none;
+  }
+}
+
+@media (max-width: 980px) {
+  .mine-lessons-page .toolbar-row {
+    grid-template-columns: minmax(0, 1fr) minmax(160px, 220px);
+  }
+
+  .mine-lessons-page .add-button {
+    min-height: 48px;
+  }
+}
+
+@media (max-width: 820px) {
+  .mine-lessons-page .top-nav {
+    grid-template-columns: minmax(160px, 1fr) auto;
+    height: auto;
+    min-height: 72px;
+    padding: 10px 16px;
+  }
+
+  .mine-lessons-page .top-nav-left {
+    order: 3;
+    grid-column: 1 / -1;
+  }
+
+  .mine-lessons-page .top-nav-right {
+    justify-content: flex-end;
+  }
+
+  .mine-lessons-page .page-grid {
+    padding: 26px 14px 24px;
+  }
+
+  .mine-lessons-page .page-hero h1 {
+    display: block;
+    font-size: 2.82rem;
+  }
+
+  .mine-lessons-page .page-hero span {
+    margin-left: 0;
+    font-size: 1.62rem;
+  }
+
+  .mine-lessons-page .toolbar-row,
+  .mine-lessons-page .stats-panel,
+  .mine-lessons-page .detail-metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .mine-lessons-page .stats-panel span + span,
+  .mine-lessons-page .detail-metrics span + span {
+    border-left: 0;
+    border-top: 1px solid rgba(47, 88, 96, 0.14);
+  }
+
+  .mine-lessons-page .lesson-scene-layer {
+    min-height: 440px;
+  }
+
+  .mine-lessons-page .lesson-prism-card {
+    width: 240px;
+    height: 230px;
+  }
+}
+
+@media (max-width: 620px) {
+  .mine-lessons-page {
+    --nav-height: 66px;
+  }
+
+  .mine-lessons-page .top-brand {
+    gap: 8px;
+    min-width: 150px;
+  }
+
+  .mine-lessons-page .teacher-brand-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 14px;
+  }
+
+  .mine-lessons-page .top-brand strong {
+    font-size: 1.22rem;
+  }
+
+  .mine-lessons-page .top-brand em,
+  .mine-lessons-page .top-nav-button {
+    font-size: 1rem;
+  }
+}

@@ -1,0 +1,362 @@
+.tests-page .top-nav {
+  position: fixed;
+  top: 0;
+  z-index: 80;
+  display: grid;
+  width: 100%;
+  min-height: var(--nav-height);
+  grid-template-columns: minmax(220px, 1fr) auto minmax(220px, 1fr);
+  align-items: center;
+  gap: clamp(20px, 3vw, 34px);
+  padding: 0 clamp(28px, 4.2vw, 72px);
+  background: rgba(250, 248, 241, 0.88);
+  border-bottom: 1px solid rgba(47, 88, 96, 0.18);
+  box-shadow: 0 14px 32px rgba(38, 62, 66, 0.06);
+  backdrop-filter: blur(14px);
+}
+
+.tests-page .top-nav-left,
+.tests-page .top-nav-right {
+  display: flex;
+  align-items: center;
+  gap: clamp(22px, 3vw, 40px);
+}
+
+.tests-page .top-nav-left {
+  justify-content: center;
+}
+
+.tests-page .top-nav-right {
+  justify-content: flex-end;
+}
+
+.tests-page .top-brand {
+  position: relative;
+  display: inline-flex;
+  width: max-content;
+  min-width: 214px;
+  max-width: 100%;
+  align-items: center;
+  gap: 12px;
+  padding: 0;
+  color: #20393d;
+  background: transparent;
+  border: 0;
+  outline: 0;
+}
+
+.tests-page .teacher-brand-icon {
+  position: relative;
+  display: block;
+  flex: 0 0 auto;
+  width: 52px;
+  height: 52px;
+  border: 0;
+  border-radius: 17px;
+  outline: 0;
+  background:
+    radial-gradient(circle at 26% 18%, rgba(255, 255, 255, 0.72), transparent 22%),
+    radial-gradient(circle at 72% 74%, rgba(80, 250, 255, 0.2), transparent 36%),
+    linear-gradient(145deg, #16213c 0%, #2244d8 44%, #7d43ff 72%, #16d4c8 100%);
+  box-shadow:
+    0 14px 32px rgba(43, 78, 142, 0.2),
+    0 0 24px rgba(45, 222, 239, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.48);
+  overflow: visible;
+  isolation: isolate;
+}
+
+.tests-page .teacher-brand-icon::before,
+.tests-page .teacher-brand-icon::after {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  content: "";
+}
+
+.tests-page .teacher-brand-icon::before {
+  z-index: 3;
+  box-shadow:
+    inset 0 0 0 1px rgba(190, 248, 255, 0.48),
+    inset 0 0 0 2px rgba(145, 108, 255, 0.18);
+}
+
+.tests-page .teacher-brand-icon::after {
+  z-index: 4;
+  background: linear-gradient(112deg, transparent 0 28%, rgba(255, 255, 255, 0.7) 42%, rgba(91, 248, 255, 0.32) 48%, transparent 62%);
+  mix-blend-mode: screen;
+  opacity: 0.42;
+  transform: translateX(-42%) skewX(-18deg);
+}
+
+.tests-page .prism-logo-glow {
+  position: absolute;
+  inset: 7px;
+  z-index: 0;
+  border-radius: 14px;
+  background:
+    radial-gradient(circle at 30% 34%, rgba(92, 251, 255, 0.42), transparent 34%),
+    radial-gradient(circle at 68% 62%, rgba(255, 79, 216, 0.3), transparent 38%);
+  filter: blur(10px);
+  opacity: 0.82;
+}
+
+.tests-page .prism-logo-core {
+  position: absolute;
+  inset: 8px;
+  z-index: 2;
+}
+
+.tests-page .prism-logo-facet,
+.tests-page .prism-logo-ray,
+.tests-page .prism-logo-nucleus {
+  position: absolute;
+  display: block;
+  pointer-events: none;
+}
+
+.tests-page .prism-logo-facet {
+  border: 1px solid rgba(215, 252, 255, 0.34);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.38),
+    0 0 12px rgba(70, 245, 255, 0.14);
+  backdrop-filter: blur(3px);
+}
+
+.tests-page .prism-logo-facet-a {
+  top: 3px;
+  left: 6px;
+  width: 23px;
+  height: 27px;
+  clip-path: polygon(44% 0, 100% 32%, 70% 100%, 0 72%, 6% 22%);
+  background: linear-gradient(138deg, rgba(255, 255, 255, 0.62), rgba(86, 239, 255, 0.64) 42%, rgba(23, 74, 255, 0.28));
+  transform: rotate(-15deg);
+}
+
+.tests-page .prism-logo-facet-b {
+  top: 9px;
+  right: 4px;
+  width: 21px;
+  height: 24px;
+  clip-path: polygon(18% 10%, 100% 0, 82% 74%, 36% 100%, 0 50%);
+  background: linear-gradient(148deg, rgba(153, 116, 255, 0.84), rgba(255, 255, 255, 0.36) 52%, rgba(59, 251, 255, 0.28));
+  transform: rotate(17deg);
+}
+
+.tests-page .prism-logo-facet-c {
+  bottom: 5px;
+  left: 12px;
+  width: 23px;
+  height: 20px;
+  clip-path: polygon(0 14%, 58% 0, 100% 48%, 74% 100%, 18% 82%);
+  background: linear-gradient(145deg, rgba(255, 79, 216, 0.42), rgba(92, 251, 255, 0.68), rgba(255, 255, 255, 0.42));
+  transform: rotate(9deg);
+}
+
+.tests-page .prism-logo-facet-d {
+  top: 15px;
+  left: 17px;
+  width: 17px;
+  height: 18px;
+  clip-path: polygon(50% 0, 100% 42%, 76% 100%, 16% 88%, 0 28%);
+  background: radial-gradient(circle at 32% 24%, rgba(255, 255, 255, 0.9), rgba(109, 123, 255, 0.44) 44%, rgba(18, 28, 62, 0.12));
+}
+
+.tests-page .prism-logo-facet-e {
+  right: -1px;
+  bottom: 8px;
+  width: 14px;
+  height: 18px;
+  clip-path: polygon(34% 0, 100% 28%, 72% 100%, 0 72%);
+  background: linear-gradient(140deg, rgba(255, 255, 255, 0.42), rgba(119, 75, 255, 0.58), rgba(32, 246, 255, 0.2));
+  transform: rotate(-7deg);
+}
+
+.tests-page .prism-logo-ray {
+  height: 1.5px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, rgba(228, 255, 255, 0.9), rgba(90, 242, 255, 0.62), transparent);
+  opacity: 0.74;
+}
+
+.tests-page .prism-logo-ray-a {
+  top: 16px;
+  right: -4px;
+  width: 24px;
+  transform: rotate(-17deg);
+}
+
+.tests-page .prism-logo-ray-b {
+  bottom: 13px;
+  left: -4px;
+  width: 25px;
+  transform: rotate(17deg);
+}
+
+.tests-page .prism-logo-nucleus {
+  top: 18px;
+  left: 20px;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow:
+    0 0 10px rgba(255, 255, 255, 0.72),
+    0 0 18px rgba(81, 247, 255, 0.42);
+}
+
+.tests-page .top-brand-name {
+  display: grid;
+  gap: 3px;
+}
+
+.tests-page .top-brand strong,
+.tests-page .top-brand em {
+  display: block;
+  letter-spacing: 0;
+  text-align: left;
+}
+
+.tests-page .top-brand strong {
+  color: rgba(28, 53, 59, 0.96);
+  font-size: 1.49rem;
+  font-weight: 900;
+  line-height: 1.1;
+}
+
+.tests-page .top-brand em {
+  color: rgba(47, 88, 96, 0.62);
+  font-size: 1.15rem;
+  font-style: normal;
+  font-weight: 650;
+}
+
+.tests-page .top-nav-button {
+  position: relative;
+  min-width: 0;
+  padding: 8px 0;
+  color: rgba(41, 78, 86, 0.78);
+  background: transparent;
+  border: 0;
+  font-size: 1.31rem;
+  font-weight: 760;
+  line-height: 1;
+}
+
+.tests-page .top-nav-button::before {
+  position: absolute;
+  bottom: -7px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  content: "";
+  background: currentColor;
+  opacity: 0;
+  transform: scaleX(0.45);
+  transform-origin: left center;
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease;
+}
+
+.tests-page .top-nav-button::after {
+  position: absolute;
+  top: 50%;
+  left: -13px;
+  width: 5px;
+  height: 5px;
+  content: "";
+  background: currentColor;
+  border-radius: 50%;
+  opacity: 0;
+  transform: translateY(-50%);
+}
+
+.tests-page .top-nav-button:hover,
+.tests-page .top-nav-button.is-active {
+  color: rgba(27, 52, 58, 0.98);
+}
+
+.tests-page .top-nav-button:hover::before,
+.tests-page .top-nav-button.is-active::before {
+  opacity: 0.72;
+  transform: scaleX(1);
+}
+
+.tests-page .top-nav-button.is-active::after {
+  opacity: 0.5;
+}
+
+.tests-page .top-nav-mark {
+  display: none;
+}
+
+.tests-page .top-user-popover {
+  position: absolute;
+  top: 56px;
+  right: 44px;
+  z-index: 81;
+  display: grid;
+  width: 210px;
+  gap: 5px;
+  padding: 12px 13px;
+  color: rgba(28, 53, 59, 0.92);
+  background: rgba(250, 248, 241, 0.96);
+  border: 1px solid rgba(47, 88, 96, 0.22);
+  box-shadow: 0 16px 32px rgba(38, 62, 66, 0.08);
+}
+
+.tests-page .top-user-popover span {
+  font-size: 1.05rem;
+  font-weight: 760;
+}
+
+.tests-page .top-user-popover small {
+  color: rgba(47, 88, 96, 0.44);
+  font-size: 0.92rem;
+}
+
+@media (max-width: 820px) {
+  .tests-page .top-nav {
+    grid-template-columns: minmax(160px, 1fr) auto;
+    height: auto;
+    min-height: 72px;
+    padding: 10px 16px;
+  }
+
+  .tests-page .top-nav-left {
+    order: 3;
+    grid-column: 1 / -1;
+  }
+
+  .tests-page .top-nav-right {
+    justify-content: flex-end;
+  }
+}
+
+@media (max-width: 620px) {
+  .tests-page {
+    --nav-height: 66px;
+  }
+
+  .tests-page .top-brand {
+    gap: 8px;
+    min-width: 150px;
+  }
+
+  .tests-page .teacher-brand-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 14px;
+  }
+
+  .tests-page .top-brand strong {
+    font-size: 1.22rem;
+  }
+
+  .tests-page .top-brand em,
+  .tests-page .top-nav-button {
+    font-size: 1rem;
+  }
+}

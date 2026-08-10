@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>智能课程设计方案 | 棱镜智教 PrismMind</title>
+    <link rel="stylesheet" href="/shared/SharedTopNav.css" />
+    <link rel="stylesheet" href="./src/styles.css" />
+    <link rel="stylesheet" href="/shared/GenerationWorkbench.css" />
+  </head>
+  <body>
+    <main class="teacher-workbench-page curriculum-design-page" aria-label="智能课程设计方案">
+      <div id="sharedTopNavMount" data-context="Curriculum design console" data-home-href="../teacher_main/index.html"></div>
+      <div class="curriculum-prism-background" id="curriculumPrismBackground" aria-hidden="true"></div>
+
+      <div class="workbench-shell">
+        <header class="workbench-hero">
+          <h1>智能课程设计方案</h1>
+          <span class="workbench-subtitle">AI-DRIVEN CURRICULUM DESIGN</span>
+          <p>基于先进的教育知识图谱与教学设计模型，智能生成结构化、高质量、可实践的课程设计方案。</p>
+        </header>
+
+        <section class="curriculum-task-stream" id="curriculumTaskStream" aria-live="polite" hidden></section>
+
+        <section class="workbench-layout">
+          <section class="workbench-panel workbench-panel--form curriculum-action-panel" aria-label="课程设计工作台">
+            <div class="panel-heading">
+              <div class="panel-title-wrap">
+                <span class="panel-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 11l9-8 9 8"></path>
+                    <path d="M5 10v10h14V10"></path>
+                    <path d="M9 20v-6h6v6"></path>
+                  </svg>
+                </span>
+                <div>
+                  <h2>课程设计工作台</h2>
+                  <p>课程主题、目标学员与学习目标</p>
+                </div>
+              </div>
+              <span class="status-pill" id="panelStatusDot">待填写</span>
+            </div>
+
+            <div class="workflow-steps" aria-label="课程设计流程">
+              <span class="workflow-step is-active" id="stepInput"><strong>01</strong>需求填写</span>
+              <span class="workflow-step" id="stepGenerate"><strong>02</strong>方案生成</span>
+            </div>
+
+            <form class="workbench-form" id="curriculumForm" novalidate>
+              <div class="field-grid">
+                <label class="form-field form-field--wide" data-field="courseId">
+                  <span class="field-label">适用班级（可选）</span>
+                  <div class="field-control">
+                    <select id="courseId" name="courseId">
+                      <option value="">不指定班级，按通用要求生成</option>
+                    </select>
+                  </div>
+                  <span class="field-hint" id="courseIdHint">选择后，AI 会实时参考班级整体画像、薄弱点和课程作业达成率。</span>
+                </label>
+                <label class="form-field" data-field="courseTopic">
+                  <span class="field-label">课程主题名称 *</span>
+                  <div class="field-control">
+                    <input id="courseTopic" name="courseTopic" type="text" autocomplete="off" placeholder="例如：Python 数据分析实战" />
+                  </div>
+                </label>
+
+                <label class="form-field" data-field="targetLearners">
+                  <span class="field-label">目标学员 *</span>
+                  <div class="field-control">
+                    <input id="targetLearners" name="targetLearners" type="text" autocomplete="off" placeholder="例如：高校本科生 / 职场数据分析师 / 初学者等" />
+                  </div>
+                </label>
+
+                <label class="form-field form-field--short" data-field="totalHours">
+                  <span class="field-label">总学时（可选）</span>
+                  <div class="field-control">
+                    <input id="totalHours" name="totalHours" type="text" inputmode="numeric" autocomplete="off" placeholder="例如：32" />
+                    <span class="field-unit">学时</span>
+                  </div>
+                </label>
+
+                <label class="form-field form-field--wide" data-field="learningObjectives">
+                  <span class="field-label">核心学习目标 *（每点一行）</span>
+                  <div class="field-control">
+                    <textarea id="learningObjectives" name="learningObjectives" rows="5" placeholder="请输入课程的核心学习目标，每点一行"></textarea>
+                  </div>
+                </label>
+
+                <label class="form-field form-field--wide" data-field="additionalRequirements">
+                  <span class="field-label">其他要求 / 备注（可选）</span>
+                  <div class="field-control">
+                    <textarea id="additionalRequirements" name="additionalRequirements" rows="4" placeholder="如：重点偏好、教学风格、已有教材、工具限制等"></textarea>
+                  </div>
+                </label>
+
+                <div class="form-field form-field--wide" data-field="referenceFile">
+                  <span class="field-label">上传参考文件（可选）</span>
+                  <div class="upload-card" id="fileControl" role="button" tabindex="0">
+                    <input class="file-input" id="referenceFile" name="referenceFile" type="file" accept=".pdf,.doc,.docx,.txt,.md,.ppt,.pptx,.xlsx" hidden />
+                    <span class="field-hint">支持 PDF / DOCX / PPTX / XLSX / TXT，单个文件建议不超过 20MB。</span>
+                    <span class="file-chip" id="fileStatus">未选择文件</span>
+                    <div class="action-row">
+                      <button class="secondary-action" id="fileSelectButton" type="button">选择文件</button>
+                      <button class="secondary-action" id="fileClearButton" type="button" hidden>清除文件</button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-field form-field--wide teacher-knowledge-source">
+                  <span class="field-label">选择生成知识来源（支持多选）</span>
+                  <select id="knowledgeDocuments" name="knowledgeDocuments" multiple size="4" aria-label="知识库文件"></select>
+                  <span class="field-hint" id="knowledgeDocumentsHint">只有已入库资料可用于生成。</span>
+                  <div class="action-row">
+                    <button class="secondary-action" id="knowledgeUploadButton" type="button">上传资料</button>
+                    <button class="secondary-action" id="knowledgeRefreshButton" type="button">刷新并选择最新就绪资料</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="action-row">
+                <button class="primary-action curriculum-generate-button" id="submitButton" type="submit">
+                  <span class="primary-action-label">开始智能设计</span>
+                </button>
+                <div class="helper-note curriculum-status-console is-ready" id="statusConsole" aria-live="polite">
+                  <span>状态</span>
+                  <strong>就绪</strong>
+                </div>
+              </div>
+            </form>
+          </section>
+
+          <aside class="workbench-stack" aria-label="课程设计预览区">
+            <section class="workbench-panel workbench-panel--preview">
+              <div class="panel-heading">
+                <div class="panel-title-wrap">
+                  <span class="panel-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M12 2v3"></path>
+                      <path d="M12 19v3"></path>
+                      <path d="M4.2 4.2l2.1 2.1"></path>
+                      <path d="M17.7 17.7l2.1 2.1"></path>
+                      <path d="M2 12h3"></path>
+                      <path d="M19 12h3"></path>
+                      <path d="M7 12a5 5 0 1 1 10 0c0 2-1.1 3.2-2.2 4.1-.6.5-.8 1-.8 1.9h-4c0-.9-.2-1.4-.8-1.9C8.1 15.2 7 14 7 12z"></path>
+                    </svg>
+                  </span>
+                  <div>
+                    <h3>设计提示 / 教学建议</h3>
+                    <p>完善需求后，方案更容易落地</p>
+                  </div>
+                </div>
+                <button class="panel-action" id="manageDesignsButton" type="button">管理我的设计</button>
+              </div>
+
+              <div class="summary-list guidance-grid">
+                <article class="summary-card">
+                  <h4>对齐学习目标</h4>
+                  <p>明确可衡量的学习目标，帮助系统精准构建课程结构与评价方案。</p>
+                </article>
+                <article class="summary-card">
+                  <h4>结构化输入</h4>
+                  <p>按知识点、能力或产出目标组织输入，提升生成质量。</p>
+                </article>
+                <article class="summary-card">
+                  <h4>明确学员画像</h4>
+                  <p>说明学员背景与能力水平，帮助匹配适切的教学内容与难度。</p>
+                </article>
+                <article class="summary-card">
+                  <h4>补充参考资料</h4>
+                  <p>上传教学大纲、讲义或优秀案例，帮助系统理解课程边界。</p>
+                </article>
+              </div>
+            </section>
+
+            <section class="workbench-panel workbench-panel--preview">
+              <div class="panel-heading">
+                <div class="panel-title-wrap">
+                  <span class="panel-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M8 6h13"></path>
+                      <path d="M8 12h13"></path>
+                      <path d="M8 18h13"></path>
+                      <path d="M3 6h.01"></path>
+                      <path d="M3 12h.01"></path>
+                      <path d="M3 18h.01"></path>
+                    </svg>
+                  </span>
+                  <div>
+                    <h3>方案预览</h3>
+                    <p>生成后展示课程目标、模块与评价方式</p>
+                  </div>
+                </div>
+                <span class="status-pill" id="previewSource">待生成</span>
+              </div>
+
+              <div class="preview-scroll" id="designPreview"></div>
+            </section>
+          </aside>
+        </section>
+      </div>
+    </main>
+
+    <script type="module" src="/shared/SharedTopNavVanilla.js"></script>
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>
