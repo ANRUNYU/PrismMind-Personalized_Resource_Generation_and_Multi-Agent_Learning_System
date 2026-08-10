@@ -141,8 +141,9 @@ def test_production_legacy_provider_does_not_silently_mock(monkeypatch):
 
 @pytest.mark.anyio
 async def test_api_key_is_not_logged(caplog):
-    sdk, _ = sdk_with(RuntimeError("sk-this-key-must-not-be-logged"))
+    fake_api_key = "test-api-key-must-not-be-logged"
+    sdk, _ = sdk_with(RuntimeError(fake_api_key))
     client = AliyunOpenAICompatibleClient(Settings(_env_file=None), sdk)
     with pytest.raises(Exception):
         await client.chat(messages=[ChatMessage(role="user", content="go")], model="qwen3-max")
-    assert "sk-this-key-must-not-be-logged" not in caplog.text
+    assert fake_api_key not in caplog.text
