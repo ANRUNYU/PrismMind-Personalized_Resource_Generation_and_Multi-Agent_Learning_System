@@ -468,8 +468,6 @@ docker compose down -v
 - 安润宇：<https://github.com/ANRUNYU>
 - 王浩然
 
-> 设计文档未提供成员的具体模块分工及王浩然的 GitHub 主页，因此此处不做推测。
-
 ## 鸣谢
 
 - 指导教师：田英爱
